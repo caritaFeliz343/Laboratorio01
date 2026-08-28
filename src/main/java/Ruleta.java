@@ -24,6 +24,14 @@ public class Ruleta {
      * un menú en consola.
      */
     public static void menu() {
-// TODO: Repetir el menú hasta que el usuario elija salir.
+        System.out.println("Menu");
+        System.out.println("============");
+        // TODO: Repetir el menú hasta que el usuario elija salir.
+    }
+    public static void mostrarMenu(){
+        // Mostrar las opciones disponibles
+        System.out.println("1. Iniciar ronda");
+        System.out.println("2. Ver estadisticas");
+        System.out.println("3. Salir");
     }
 }
