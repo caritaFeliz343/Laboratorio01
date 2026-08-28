@@ -1,3 +1,4 @@
+import java.io.InputStream;
 import java.util.Random;
 import java.util.Scanner;
 public class Ruleta {
@@ -26,6 +27,9 @@ public class Ruleta {
     public static void menu() {
         System.out.println("Menu");
         System.out.println("============");
+        while (true){
+            mostrarMenu();
+        }
         // TODO: Repetir el menú hasta que el usuario elija salir.
     }
     public static void mostrarMenu(){
@@ -33,5 +37,17 @@ public class Ruleta {
         System.out.println("1. Iniciar ronda");
         System.out.println("2. Ver estadisticas");
         System.out.println("3. Salir");
+    }
+    public static int leerOpcion(Scanner in){
+        Scanner lectorOpcionObj = new Scanner(System.in);
+        int opcionSeleccionada = lectorOpcionObj.nextInt();
+        if (opcionSeleccionada == 1){
+            // ejecutar iniciar ronda
+        } else if (opcionSeleccionada == 2){
+            // ejecutar ver estadisticas
+        } else if (opcionSeleccionada == 3) {
+            // ejecutar salir
+        }
+        return 0;
     }
 }
