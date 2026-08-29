@@ -25,29 +25,35 @@ public class Ruleta {
      * un menú en consola.
      */
     public static void menu() {
-        System.out.println("Menu");
-        System.out.println("============");
-        while (true){
+        Scanner miScanner = new Scanner(System.in);
+        int numeroOpcion = 0;
+        do{
             mostrarMenu();
-        }
+            numeroOpcion = leerOpcion(miScanner);
+            ejecutarOpcion(numeroOpcion);
+        } while(numeroOpcion != 3);
         // TODO: Repetir el menú hasta que el usuario elija salir.
     }
     public static void mostrarMenu(){
         // Mostrar las opciones disponibles
+        System.out.println("\t\tMENU");
+        System.out.println("====================");
+        System.out.println("Selecciona una de las siguientes opciones:");
         System.out.println("1. Iniciar ronda");
         System.out.println("2. Ver estadisticas");
         System.out.println("3. Salir");
     }
     public static int leerOpcion(Scanner in){
-        Scanner lectorOpcionObj = new Scanner(System.in);
-        int opcionSeleccionada = lectorOpcionObj.nextInt();
-        if (opcionSeleccionada == 1){
-            // ejecutar iniciar ronda
-        } else if (opcionSeleccionada == 2){
-            // ejecutar ver estadisticas
-        } else if (opcionSeleccionada == 3) {
-            // ejecutar salir
+        int opcionSeleccionada = Integer.parseInt(in.next());
+        return opcionSeleccionada;
+    }
+    public static void ejecutarOpcion(int opcion){
+        if (opcion == 1) {
+            //Iniciar ronda
+        } else if (opcion == 2) {
+            // Ver estadisticas
+        } else if (opcion == 3) {
+            System.out.println("esta es la opcion 3");
         }
-        return 0;
     }
 }
