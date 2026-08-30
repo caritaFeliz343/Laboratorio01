@@ -1,6 +1,3 @@
-import javax.swing.table.TableRowSorter;
-import java.io.InputStream;
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 public class Ruleta {
@@ -57,7 +54,7 @@ public class Ruleta {
     {
         if (opcion == 1)
         {
-            iniciarRonda(miScanner);
+            iniciarRonda(in);
         }
         else if (opcion == 2)
         {
@@ -70,28 +67,28 @@ public class Ruleta {
     }
     public static void iniciarRonda(Scanner in)
     {
-        System.out.print("Seleccione su tipo de apuesta: (P)Par/(I)impar o (R)Rojo/(N)Negro, usando la inicial:");
-        char tipoDeApuesta = leerTipoApuesta(miScanner);
-        boolean resultadoRonda = evaluarResultado(girarRuleta(),tipoDeApuesta);
-        if (resultadoRonda == true)
-        {
-            System.out.println("Ganaste");
-        }
-        else
-        {
-            System.out.println("Perdiste");
-        }
+        char tipoDeApuesta = leerTipoApuesta(in);
+        int cantidadDeApuesta = leerMontoApuesta(in);
+        int numeroRuleta = girarRuleta();
+        boolean resultadoRonda = evaluarResultado(numeroRuleta,tipoDeApuesta);
+        registrarResultado(numeroRuleta,cantidadDeApuesta,resultadoRonda);
+        mostrarResultado(numeroRuleta,tipoDeApuesta,cantidadDeApuesta,resultadoRonda);
     }
     public static char leerTipoApuesta(Scanner in)
     {
+        System.out.println("Seleccione su tipo de apuesta: (P)Par/(I)impar o (R)Rojo/(N)Negro, usando la inicial: ");
         char tipoDeApuesta = in.next().charAt(0);
-        // TODO: Leer y validar el tipo de apuesta.
         return tipoDeApuesta;
+    }
+    public static int leerMontoApuesta(Scanner in)
+    {
+        System.out.println("Especifique la cantidad que quiere apostar: ");
+        int cantidadApuesta = in.nextInt();
+        return cantidadApuesta;
     }
     public static int girarRuleta()
     {
         int numeroRandom = rng.nextInt(0,37);
-        System.out.println("Tu numero es: "+numeroRandom);
         return numeroRandom;
     }
 
@@ -142,5 +139,27 @@ public class Ruleta {
             }
         }
         return boolRetorno;
+    }
+    public static void registrarResultado(int numero, int apuesta, boolean acierto)
+    {
+        int indice = 0;
+        historialNumeros[indice] = numero;
+        historialApuestas[indice] = apuesta;
+        historialAciertos[indice] = acierto;
+        indice++;
+    }
+    public static void mostrarResultado(int numero, char tipo, int monto, boolean acierto)
+    {
+        System.out.println("Tu numero fue: "+numero);
+        System.out.println("Tu apuesta fue al: "+tipo);
+        System.out.println("Apostaste: $"+monto);
+        if (acierto)
+        {
+            System.out.println("Felicidades! Ganaste!");
+        }
+        else
+        {
+            System.out.println("Que triste... Perdiste!");
+        }
     }
 }
