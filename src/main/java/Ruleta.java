@@ -59,7 +59,7 @@ public class Ruleta {
         }
         else if (opcion == 2)
         {
-            // Ver estadisticas
+            // TODO: Ver estadisticas
         }
         else if (opcion == 3)
         {
@@ -68,8 +68,9 @@ public class Ruleta {
     }
     public static void iniciarRonda(Scanner in)
     {
-        System.out.println("Seleccione su tipo de apuesta: Par/impar o Rojo/Negro");
+        System.out.print("Seleccione su tipo de apuesta: (P)Par/(I)impar o (R)Rojo/(N)Negro, usando la inicial:");
         char tipoDeApuesta = leerTipoApuesta(miScanner);
+        evaluarResultado(girarRuleta(),tipoDeApuesta);
         if (tipoDeApuesta == 'P')
         {
             System.out.println("Apuesta par");
@@ -92,5 +93,16 @@ public class Ruleta {
         char tipoDeApuesta = in.next().charAt(0);
         // TODO: Leer y validar el tipo de apuesta.
         return tipoDeApuesta;
+    }
+    public static int girarRuleta()
+    {
+        int numeroRandom = rng.nextInt(0,37);
+        return numeroRandom;
+    }
+    // true si acerto, false si no
+    public static boolean evaluarResultado(int numero, char tipo)
+    {
+        boolean resultado = false;
+        return resultado;
     }
 }
