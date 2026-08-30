@@ -1,4 +1,6 @@
+import javax.swing.table.TableRowSorter;
 import java.io.InputStream;
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 public class Ruleta {
@@ -70,22 +72,14 @@ public class Ruleta {
     {
         System.out.print("Seleccione su tipo de apuesta: (P)Par/(I)impar o (R)Rojo/(N)Negro, usando la inicial:");
         char tipoDeApuesta = leerTipoApuesta(miScanner);
-        evaluarResultado(girarRuleta(),tipoDeApuesta);
-        if (tipoDeApuesta == 'P')
+        boolean resultadoRonda = evaluarResultado(girarRuleta(),tipoDeApuesta);
+        if (resultadoRonda == true)
         {
-            System.out.println("Apuesta par");
+            System.out.println("Ganaste");
         }
-        else if (tipoDeApuesta == 'I')
+        else
         {
-            System.out.println("Apuesta Impar");
-        }
-        else if (tipoDeApuesta == 'R')
-        {
-            System.out.println("Apuesta Rojo");
-        }
-        else if (tipoDeApuesta == 'N')
-        {
-            System.out.println("Apuesta Negro");
+            System.out.println("Perdiste");
         }
     }
     public static char leerTipoApuesta(Scanner in)
@@ -97,12 +91,56 @@ public class Ruleta {
     public static int girarRuleta()
     {
         int numeroRandom = rng.nextInt(0,37);
+        System.out.println("Tu numero es: "+numeroRandom);
         return numeroRandom;
     }
-    // true si acerto, false si no
+
     public static boolean evaluarResultado(int numero, char tipo)
+    // true si acerto, false si no
     {
+        boolean numeroRojo = esRojo(numero);
         boolean resultado = false;
+        if (tipo == 'R' && numeroRojo)
+        {
+            resultado = true;
+        }
+        else if (tipo == 'R' && !numeroRojo)
+        {
+            resultado = false;
+        }
+        else if (tipo == 'N' && !numeroRojo)
+        {
+            resultado = true;
+        }
+        else if (tipo == 'P' && numero % 2 == 0)
+        {
+            resultado = true;
+        }
+        else if (tipo == 'I' && numero % 2 == 0)
+        {
+            resultado = false;
+        }
+        else if (tipo == 'I' && numero % 2 != 0)
+        {
+            resultado = true;
+        }
         return resultado;
+    }
+    public static boolean esRojo(int n)
+    {
+        boolean boolRetorno = false;
+        for (int numero : numerosRojos)
+        {
+            if (n == numero)
+            {
+                boolRetorno = true;
+                break;
+            }
+            else
+            {
+                boolRetorno = false;
+            }
+        }
+        return boolRetorno;
     }
 }
