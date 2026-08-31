@@ -38,6 +38,7 @@ public class Ruleta {
     }
     public static void mostrarMenu()
     {
+        System.out.println("====================");
         System.out.println("\t\tMENU");
         System.out.println("====================");
         System.out.println("Selecciona una de las siguientes opciones:");
@@ -58,7 +59,7 @@ public class Ruleta {
         }
         else if (opcion == 2)
         {
-            // TODO: Ver estadisticas
+            //();
         }
         else if (opcion == 3)
         {
@@ -142,11 +143,10 @@ public class Ruleta {
     }
     public static void registrarResultado(int numero, int apuesta, boolean acierto)
     {
-        int indice = 0;
-        historialNumeros[indice] = numero;
-        historialApuestas[indice] = apuesta;
-        historialAciertos[indice] = acierto;
-        indice++;
+        historialNumeros[historialSize] = numero;
+        historialApuestas[historialSize] = apuesta;
+        historialAciertos[historialSize] = acierto;
+        historialSize++;
     }
     public static void mostrarResultado(int numero, char tipo, int monto, boolean acierto)
     {
@@ -162,4 +162,41 @@ public class Ruleta {
             System.out.println("Que triste... Perdiste!");
         }
     }
+    public static int totalApostado()
+    {
+        int sumaApuestas = 0;
+        for (int i = 0; i < historialSize ; i++)
+        {
+            sumaApuestas += historialApuestas[i];
+        }
+        return sumaApuestas;
+    }
+    public static int totalAciertos()
+    {
+        // Cantidad total de aciertos
+        int sumaAciertos = 0;
+        for (int i = 0; i < historialSize ; i++)
+        {
+            if (historialAciertos[i])
+            {
+                sumaAciertos++;
+            }
+        }
+        return sumaAciertos;
+    }
+    public static void porcentajeDeAciertos()
+    {
+        float porcentajeAciertos = 0;
+        if (historialSize != 0)
+        {
+            porcentajeAciertos = (float)(totalAciertos() * 100) / historialSize;
+            System.out.println("Tu porcentaje de aciertos es: "+porcentajeAciertos+"%");
+        }
+        else
+        {
+            System.out.println("Tu porcentaje de aciertos es: No has jugado todavia");
+        }
+
+    }
+
 }
