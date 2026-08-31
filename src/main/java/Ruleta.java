@@ -38,9 +38,9 @@ public class Ruleta {
     }
     public static void mostrarMenu()
     {
-        System.out.println("====================");
-        System.out.println("\t\tMENU");
-        System.out.println("====================");
+        System.out.println("============================");
+        System.out.println("\tMENU casino Black Cat");
+        System.out.println("============================");
         System.out.println("Selecciona una de las siguientes opciones:");
         System.out.println("1. Iniciar ronda");
         System.out.println("2. Ver estadisticas");
@@ -59,7 +59,7 @@ public class Ruleta {
         }
         else if (opcion == 2)
         {
-            //();
+            mostrarEstadisticas();
         }
         else if (opcion == 3)
         {
@@ -196,7 +196,21 @@ public class Ruleta {
         {
             System.out.println("Tu porcentaje de aciertos es: No has jugado todavia");
         }
+    }
+    public static void apuestaNeta()
+    {
+        // implementar que al perder pierda dinero
+    }
+    public static void mostrarEstadisticas()
+    {
+        System.out.println("Haz jugado: "+ historialSize + " rondas");
+        int totalApostado = totalApostado();
+        System.out.println("Haz apostado en total: $" + totalApostado);
+        int totalAciertos = totalAciertos();
+        System.out.println("Haz tenido: " + totalAciertos + " aciertos");
+        porcentajeDeAciertos();
 
+        // Ganancia o perdida neta
     }
 
 }
