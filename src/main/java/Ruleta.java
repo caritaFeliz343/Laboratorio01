@@ -5,6 +5,7 @@ public class Ruleta {
     public static int[] historialNumeros = new int[MAX_HISTORIAL];
     public static int[] historialApuestas = new int[MAX_HISTORIAL];
     public static boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
+    public static int NUMERO_MAXIMO_RULETA = 37;
     public static int historialSize = 0;
     public static Random rng = new Random();
     public static Scanner miScanner = new Scanner(System.in);
@@ -89,7 +90,7 @@ public class Ruleta {
     }
     public static int girarRuleta()
     {
-        int numeroRandom = rng.nextInt(0,37);
+        int numeroRandom = rng.nextInt(0,NUMERO_MAXIMO_RULETA);
         return numeroRandom;
     }
 
