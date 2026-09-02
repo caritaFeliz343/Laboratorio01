@@ -2,10 +2,11 @@ import java.util.Random;
 import java.util.Scanner;
 public class Ruleta {
     public static final int MAX_HISTORIAL = 100;
+    public static final int NUMERO_MAXIMO_RULETA = 37;
     public static int[] historialNumeros = new int[MAX_HISTORIAL];
     public static int[] historialApuestas = new int[MAX_HISTORIAL];
     public static boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
-    public static int NUMERO_MAXIMO_RULETA = 37;
+    public static int contadorDinero = 0;
     public static int historialSize = 0;
     public static Random rng = new Random();
     public static Scanner miScanner = new Scanner(System.in);
@@ -73,6 +74,8 @@ public class Ruleta {
         int cantidadDeApuesta = leerMontoApuesta(in);
         int numeroRuleta = girarRuleta();
         boolean resultadoRonda = evaluarResultado(numeroRuleta,tipoDeApuesta);
+        int dineroModificado = modificadorGanarPerder(cantidadDeApuesta,resultadoRonda);
+        apuestaNeta(dineroModificado);
         registrarResultado(numeroRuleta,cantidadDeApuesta,resultadoRonda);
         mostrarResultado(numeroRuleta,tipoDeApuesta,cantidadDeApuesta,resultadoRonda);
     }
@@ -198,9 +201,23 @@ public class Ruleta {
             System.out.println("Tu porcentaje de aciertos es: No has jugado todavia");
         }
     }
-    public static void apuestaNeta()
+    public static int modificadorGanarPerder(int monto, boolean acierto)
     {
-        // implementar que al perder pierda dinero
+        if (acierto)
+        {
+            monto *=2;
+        }
+        else
+        {
+            monto *=-1;
+        }
+        return monto;
+    }
+    public static int apuestaNeta(int numero)
+    {
+        int dineroDespuesModificador = numero;
+        contadorDinero += dineroDespuesModificador;
+        return contadorDinero;
     }
     public static void mostrarEstadisticas()
     {
@@ -212,6 +229,6 @@ public class Ruleta {
         porcentajeDeAciertos();
 
         // Ganancia o perdida neta
+        System.out.println("Tu apuesta neta es: $"+contadorDinero);
     }
-
 }
