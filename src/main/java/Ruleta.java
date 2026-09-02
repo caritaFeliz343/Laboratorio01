@@ -75,14 +75,25 @@ public class Ruleta {
         int numeroRuleta = girarRuleta();
         boolean resultadoRonda = evaluarResultado(numeroRuleta,tipoDeApuesta);
         int dineroModificado = modificadorGanarPerder(cantidadDeApuesta,resultadoRonda);
+
         apuestaNeta(dineroModificado);
         registrarResultado(numeroRuleta,cantidadDeApuesta,resultadoRonda);
         mostrarResultado(numeroRuleta,tipoDeApuesta,cantidadDeApuesta,resultadoRonda);
     }
     public static char leerTipoApuesta(Scanner in)
     {
-        System.out.println("Seleccione su tipo de apuesta: (P)Par/(I)impar o (R)Rojo/(N)Negro, usando la inicial: ");
-        char tipoDeApuesta = in.next().charAt(0);
+        char tipoDeApuesta = ' ';
+        while (true)
+        {
+            System.out.println("Seleccione su tipo de apuesta: (P)Par/(I)impar o (R)Rojo/(N)Negro, usando la inicial: ");
+            tipoDeApuesta = in.next().toUpperCase().charAt(0);
+            if (tipoDeApuesta == 'P' || tipoDeApuesta == 'I' || tipoDeApuesta == 'R' || tipoDeApuesta == 'N')
+                break;
+            else
+            {
+                System.out.println("Por favor ingrese una apuesta valida. ");
+            }
+        }
         return tipoDeApuesta;
     }
     public static int leerMontoApuesta(Scanner in)
