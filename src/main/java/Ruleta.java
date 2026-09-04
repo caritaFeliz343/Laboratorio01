@@ -18,10 +18,7 @@ public class Ruleta {
     /**
      * Método principal: inicia el programa llamando al menú.
      */
-    public static void main(String[] args)
-    {
-        menu();
-    }
+
 
     /**
      * Controla el flujo principal del programa mostrando
