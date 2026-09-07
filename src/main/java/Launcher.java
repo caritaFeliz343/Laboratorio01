@@ -2,7 +2,7 @@ public class Launcher
 {
     public static void main(String[] args)
     {
-
-        Ruleta.menu();
+        VentanaSaludo saludo = new VentanaSaludo();
+        saludo.mostrarVentanaSaludo();
     }
 }

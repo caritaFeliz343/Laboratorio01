@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +19,25 @@ public class VentanaLogin {
      */
     public VentanaLogin() {
 // TODO: Agregar los usuarios iniciales a la lista
-// TODO: Inicializar y configurar la ventana
+// TODO: Inicializar y configurar la ventana.
+        frame.setSize(640,480);
+        frame.setLayout(new GridLayout(6,4,10,10));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(lblUsuario);
+        frame.add(txtUsuario);
+        frame.add(lblClave);
+        frame.add(txtClave);
+        frame.add(btnIngresar);
     }
     /**
      * Muestra la ventana en pantalla.
      * Debe centrarla y hacerla visible.
      */
-    public void mostrarVentana() {
-// TODO: Centrar y mostrar la ventana
+    public void mostrarVentana()
+    {
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
     }
     /**
      * Gestiona el inicio de sesión al presionar el botón.
