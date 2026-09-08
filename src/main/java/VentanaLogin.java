@@ -68,7 +68,7 @@ public class VentanaLogin {
         }
         else
         {
-            JOptionPane.showMessageDialog(frame, "Ingrese el nombre de usuario o contraseña correctos");
+            JOptionPane.showMessageDialog(frame, "Ingrese el nombre de usuario o contraseña correctos","Error",JOptionPane.WARNING_MESSAGE);
         }
     }
     /**
