@@ -11,7 +11,7 @@ public class VentanaSaludo
     public VentanaSaludo()
     {
         frame.setSize(640,480);
-        frame.setLayout(new GridLayout(3,1,10,10));
+        frame.setLayout(new GridLayout(4,1,10,10));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         txtBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(txtBienvenida);
