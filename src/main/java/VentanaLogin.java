@@ -59,10 +59,12 @@ public class VentanaLogin {
     {
         String usuario = txtUsuario.getText();
         String clave = new String(txtClave.getPassword());
-        String validado = validarCredenciales(usuario,clave);
-        if (validado != "")
+        String validadoNombre = validarCredenciales(usuario,clave);
+        if (validadoNombre != "")
         {
-            Ruleta.mostrarMenu();
+            JOptionPane.showMessageDialog(frame, "Bienvenido, " + validadoNombre);
+            frame.dispose();
+            Ruleta.menu();
         }
         else
         {
