@@ -31,6 +31,7 @@ public class VentanaLogin {
         frame.add(lblClave);
         frame.add(txtClave);
         frame.add(btnIngresar);
+        btnIngresar.addActionListener(e -> login());
         frame.add(btnRegresar);
         btnRegresar.addActionListener(e -> regresar());
     }
@@ -48,15 +49,25 @@ public class VentanaLogin {
     {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
     }
     /**
      * Gestiona el inicio de sesión al presionar el botón.
      * Debe validar las credenciales ingresadas y abrir la siguiente
      * ventana o mostrar un mensaje de error.
      */
-    private void login() {
-// TODO: Implementar la lógica de inicio de sesión
+    private void login()
+    {
+        String usuario = txtUsuario.getText();
+        String clave = new String(txtClave.getPassword());
+        String validado = validarCredenciales(usuario,clave);
+        if (validado != "")
+        {
+            Ruleta.mostrarMenu();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(frame, "Ingrese el nombre de usuario o contraseña correctos");
+        }
     }
     /**
      * Valida las credenciales ingresadas utilizando la lista de usuarios.
@@ -66,15 +77,15 @@ public class VentanaLogin {
      * @return el nombre del usuario si las credenciales son válidas o una cadena vacía
     si no existe una coincidencia
      */
-    private String validarCredenciales(String u, String p) {
-// TODO: Recorrer la lista y validar las credenciales
+    private String validarCredenciales(String u, String p)
+    {
+        for (Usuario usuario : USUARIOS)
+        {
+            if (usuario.validarCredenciales(u,p))
+            {
+                return usuario.getNombre();
+            }
+        }
         return "";
-    }
-    /**
-     * Abre la ventana de registro para crear un nuevo usuario.
-     * Debe cerrar la ventana actual e invocar a VentanaRegistro.
-     */
-    private void abrirRegistro() {
-// TODO: Cerrar la ventana actual y abrir la ventana de registro
     }
 }
