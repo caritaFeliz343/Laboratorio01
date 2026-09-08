@@ -60,7 +60,7 @@ public class VentanaLogin {
         String usuario = txtUsuario.getText();
         String clave = new String(txtClave.getPassword());
         String validadoNombre = validarCredenciales(usuario,clave);
-        if (validadoNombre != "")
+        if (!validadoNombre.isEmpty())
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + validadoNombre);
             frame.dispose();
