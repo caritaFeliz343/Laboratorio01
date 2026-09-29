@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class VentanaRuleta
 {
@@ -12,29 +13,49 @@ public class VentanaRuleta
     private final JRadioButton opcionTipoApuestaParidad = new JRadioButton("Paridad");
     private final JRadioButton opcionTipoApuestaColor = new JRadioButton("Color");
 
+    private final JRadioButton opcionParidadPar = new JRadioButton("Par");
+    private final JRadioButton opcionParidadImpar = new JRadioButton("Impar");
+
     public VentanaRuleta()
     {
         frame.setSize(640,480);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        opcionTipoApuestaColor.setSelected(true);
+        opcionTipoApuestaParidad.setSelected(true);
+        opcionParidadImpar.setSelected(true);
 
         ButtonGroup grupoTipoApuesta = new ButtonGroup(); //hace que sean exlcuyentes
-        grupoTipoApuesta.add(opcionTipoApuestaColor);
         grupoTipoApuesta.add(opcionTipoApuestaParidad);
-
+        grupoTipoApuesta.add(opcionTipoApuestaColor);
         lblTipoApuesta.setBounds(20,20,180,25);
-        opcionTipoApuestaColor.setBounds(320,20,80,25);
-        opcionTipoApuestaParidad.setBounds(420,20,80,25);
+        opcionTipoApuestaParidad.setBounds(320,20,80,25);
+        opcionTipoApuestaColor.setBounds(420,20,80,25);
 
+        ButtonGroup grupoParidad = new ButtonGroup();
+        grupoParidad.add(opcionParidadImpar);
+        grupoParidad.add(opcionParidadPar);
+        lblParidad.setBounds(20,50,220,25);
+        opcionParidadImpar.setBounds(320,50,80,25);
+        opcionParidadPar.setBounds(420,50,80,25);
 
+        ActionListener saberTipoApuestaSelec = e ->
+        {
+            boolean esPar = opcionTipoApuestaParidad.isSelected();
+            opcionParidadImpar.setEnabled(esPar);
+            opcionParidadPar.setEnabled(esPar);
+
+        };
+        opcionTipoApuestaParidad.addActionListener(saberTipoApuestaSelec);
+        opcionTipoApuestaColor.addActionListener(saberTipoApuestaSelec);
 
         frame.add(lblTipoApuesta);
-        frame.add(opcionTipoApuestaColor);
         frame.add(opcionTipoApuestaParidad);
-        frame.add(lblColor);
+        frame.add(opcionTipoApuestaColor);
         frame.add(lblParidad);
+        frame.add(opcionParidadImpar);
+        frame.add(opcionParidadPar);
+        frame.add(lblColor);
     }
     public void mostrarVentanaRuleta()
     {
