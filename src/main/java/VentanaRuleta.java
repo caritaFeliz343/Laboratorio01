@@ -16,6 +16,9 @@ public class VentanaRuleta
     private final JRadioButton opcionParidadPar = new JRadioButton("Par");
     private final JRadioButton opcionParidadImpar = new JRadioButton("Impar");
 
+    private final JRadioButton opcionColorRojo = new JRadioButton("Rojo");
+    private final JRadioButton opcionColorNegro = new JRadioButton("Negro");
+
     public VentanaRuleta()
     {
         frame.setSize(640,480);
@@ -39,11 +42,23 @@ public class VentanaRuleta
         opcionParidadImpar.setBounds(320,50,80,25);
         opcionParidadPar.setBounds(420,50,80,25);
 
+        ButtonGroup grupoColor = new ButtonGroup();
+        grupoColor.add(opcionColorNegro);
+        grupoColor.add(opcionColorRojo);
+        lblColor.setBounds(20,80,220,25);
+        opcionColorNegro.setBounds(320,80,80,25);
+        opcionColorRojo.setBounds(420,80,80,25);
+
+        opcionColorRojo.setEnabled(false);
+        opcionColorNegro.setEnabled(false);
         ActionListener saberTipoApuestaSelec = e ->
         {
             boolean esPar = opcionTipoApuestaParidad.isSelected();
             opcionParidadImpar.setEnabled(esPar);
             opcionParidadPar.setEnabled(esPar);
+
+            opcionColorNegro.setEnabled(!esPar);
+            opcionColorRojo.setEnabled(!esPar);
 
         };
         opcionTipoApuestaParidad.addActionListener(saberTipoApuestaSelec);
@@ -56,6 +71,8 @@ public class VentanaRuleta
         frame.add(opcionParidadImpar);
         frame.add(opcionParidadPar);
         frame.add(lblColor);
+        frame.add(opcionColorNegro);
+        frame.add(opcionColorRojo);
     }
     public void mostrarVentanaRuleta()
     {
