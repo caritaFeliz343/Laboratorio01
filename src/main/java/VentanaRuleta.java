@@ -115,7 +115,7 @@ public class VentanaRuleta
     private void agregarFila(String texto, int numeroFila, JLabel lbl)
     {
         int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
-        lbl.setBounds(POS_X_OPCION2,posicionY,ANCHO_RESULTADO,ALTO_FILA);
+        lbl.setBounds(POS_X_OPCION1,posicionY,ANCHO_RESULTADO,ALTO_FILA);
 
         JLabel etiqueta = new JLabel(texto);
         etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
@@ -133,7 +133,7 @@ public class VentanaRuleta
         int dineroModificado = Ruleta.modificadorGanarPerder(monto, acierto);
         Ruleta.apuestaNeta(dineroModificado);
         Ruleta.registrarResultado(numeroRuleta, monto, acierto);
-        mostrarResultado(numeroRuleta, monto, acierto);
+        mostrarResultado(numeroRuleta, tipo, monto, acierto);
     }
     private char obtenerTipoDeApuesta()
     {
@@ -158,7 +158,7 @@ public class VentanaRuleta
         }
         return charRetorno;
     }
-    private void mostrarResultado(int numero, int monto, boolean acierto)
+    private void mostrarResultado(int numero, char tipo, int monto, boolean acierto)
     {
         String resultado = "";
         if (acierto)
@@ -169,7 +169,7 @@ public class VentanaRuleta
         {
             resultado = "Perdiste...";
         }
-        lblResultado.setText("Número " + numero + " | Monto=$" + monto + " | " + resultado);
+        lblResultado.setText("Número " + numero + " | Apuesta Tipo " + tipo + " | Monto=$" + monto + " | " + resultado);
     }
 
 }
