@@ -64,8 +64,8 @@ public class VentanaLogin {
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + validadoNombre);
             frame.dispose();
-            VentanaRuleta hola = new VentanaRuleta();
-            hola.mostrarVentanaRuleta();
+            VentanaMenu ventanaMenu = new VentanaMenu();
+            ventanaMenu.mostrarVentana();
         }
         else
         {
