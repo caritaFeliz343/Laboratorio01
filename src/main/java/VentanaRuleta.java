@@ -24,6 +24,8 @@ public class VentanaRuleta
     private final JRadioButton opcionColorRojo = new JRadioButton("Rojo");
     private final JRadioButton opcionColorNegro = new JRadioButton("Negro");
 
+    private final JSpinner spinnerMonto = new JSpinner(new SpinnerNumberModel(10, 1, 5000, 1));
+
     public VentanaRuleta()
     {
         frame.setSize(640,480);
@@ -37,6 +39,7 @@ public class VentanaRuleta
         agregarFila("Selecciona el tipo de apuesta",0,opcionTipoApuestaParidad,opcionTipoApuestaColor);
         agregarFila("Selecciona la paridad de tu apuesta",1,opcionParidadImpar,opcionParidadPar);
         agregarFila("Selecciona el color de tu apuesta",2,opcionColorNegro,opcionColorRojo);
+        agregarFila("Selecciona la cantidad a apostar",3,spinnerMonto);
 
         opcionColorRojo.setEnabled(false);
         opcionColorNegro.setEnabled(false);
@@ -74,5 +77,15 @@ public class VentanaRuleta
         frame.add(etiqueta);
         frame.add(botonA);
         frame.add(botonB);
+    }
+    private void agregarFila(String texto, int numeroFila,JSpinner spinnerA)
+    {
+        int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
+        JLabel etiqueta = new JLabel(texto);
+        etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
+
+        spinnerA.setBounds(POS_X_OPCION1,posicionY,ANCHO_OPCIONES,ALTO_FILA);
+        frame.add(etiqueta);
+        frame.add(spinnerA);
     }
 }
