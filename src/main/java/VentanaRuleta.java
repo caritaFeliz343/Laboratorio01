@@ -160,7 +160,7 @@ public class VentanaRuleta
     }
     private void mostrarResultado(int numero, char tipo, int monto, boolean acierto)
     {
-        String resultado = "";
+        String resultado = ""; // TODO: Hacer que muestre si la apuesta original era roja o negra
         if (acierto)
         {
             resultado = "Ganaste!!!";
