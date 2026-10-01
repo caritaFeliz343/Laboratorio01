@@ -11,6 +11,7 @@ public class VentanaRuleta
     private static final int POS_Y_INICIAL = 20;
     private static final int SEPARACION_Y = 30;
     private static final int POS_X_TEXTO = 20;
+    private static final int POS_X_RESULTADO_RULETA = 200;
     private static final int POS_X_OPCION1 = 320;
     private static final int POS_X_OPCION2 = 420;
     private static final int MONTO_INICIAL = 10;
@@ -52,7 +53,7 @@ public class VentanaRuleta
         agregarFila("Selecciona el color de tu apuesta",2,opcionColorNegro,opcionColorRojo);
         agregarFila("Selecciona la cantidad a apostar",3,spinnerMonto);
         agregarFila("",4,btnGirar);
-        agregarFila("Resultado",5,lblResultado);
+        agregarFila("Resultado de la ruleta",5,lblResultado);
         btnGirar.addActionListener(e -> girar());
 
         opcionColorRojo.setEnabled(false);
@@ -115,7 +116,7 @@ public class VentanaRuleta
     private void agregarFila(String texto, int numeroFila, JLabel lbl)
     {
         int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
-        lbl.setBounds(POS_X_OPCION1,posicionY,ANCHO_RESULTADO,ALTO_FILA);
+        lbl.setBounds(POS_X_RESULTADO_RULETA,posicionY,ANCHO_RESULTADO,ALTO_FILA);
 
         JLabel etiqueta = new JLabel(texto);
         etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
@@ -160,7 +161,8 @@ public class VentanaRuleta
     }
     private void mostrarResultado(int numero, char tipo, int monto, boolean acierto)
     {
-        String resultado = ""; // TODO: Hacer que muestre si la apuesta original era roja o negra
+        String colorOriginal = obtenerColorResultado(numero);
+        String resultado;
         if (acierto)
         {
             resultado = "Ganaste!!!";
@@ -169,7 +171,21 @@ public class VentanaRuleta
         {
             resultado = "Perdiste...";
         }
-        lblResultado.setText("Número " + numero + " | Apuesta Tipo " + tipo + " | Monto=$" + monto + " | " + resultado);
+        lblResultado.setText("Número " + numero + "("+colorOriginal+")" + " | Apuesta Tipo " + tipo + " | Monto=$" + monto + " | " + resultado);
+    }
+    private String obtenerColorResultado(int numero)
+    {
+        String colorRetornado = " ";
+        boolean esRojo = Ruleta.esRojo(numero);
+        if (esRojo)
+        {
+            colorRetornado = "Rojo";
+        }
+        else
+        {
+            colorRetornado = "Negro";
+        }
+        return colorRetornado;
     }
 
 }
