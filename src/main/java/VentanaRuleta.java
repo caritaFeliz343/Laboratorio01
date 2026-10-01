@@ -12,6 +12,12 @@ public class VentanaRuleta
     private static final int POS_X_TEXTO = 20;
     private static final int POS_X_OPCION1 = 320;
     private static final int POS_X_OPCION2 = 420;
+    private static final int MONTO_INICIAL = 10;
+    private static final int MONTO_MINIMO = 1;
+    private static final int MONTO_MAXIMO = 5000;
+    private static final int MONTO_PASO = 1;
+
+    public static Ruleta ruleta = new Ruleta();
 
     private final JFrame frame = new JFrame("Ruleta");
 
@@ -24,9 +30,9 @@ public class VentanaRuleta
     private final JRadioButton opcionColorRojo = new JRadioButton("Rojo");
     private final JRadioButton opcionColorNegro = new JRadioButton("Negro");
 
-    private final JSpinner spinnerMonto = new JSpinner(new SpinnerNumberModel(10, 1, 5000, 1));
+    private final JSpinner spinnerMonto = new JSpinner(new SpinnerNumberModel(MONTO_INICIAL, MONTO_MINIMO, MONTO_MAXIMO, MONTO_PASO));
 
-    public VentanaRuleta()
+    public VentanaRuleta(Ruleta ruleta)
     {
         frame.setSize(640,480);
         frame.setLayout(null);
@@ -35,6 +41,7 @@ public class VentanaRuleta
 
         opcionTipoApuestaParidad.setSelected(true);
         opcionParidadImpar.setSelected(true);
+        opcionColorNegro.setSelected(true);
 
         agregarFila("Selecciona el tipo de apuesta",0,opcionTipoApuestaParidad,opcionTipoApuestaColor);
         agregarFila("Selecciona la paridad de tu apuesta",1,opcionParidadImpar,opcionParidadPar);
@@ -87,5 +94,40 @@ public class VentanaRuleta
         spinnerA.setBounds(POS_X_OPCION1,posicionY,ANCHO_OPCIONES,ALTO_FILA);
         frame.add(etiqueta);
         frame.add(spinnerA);
+    }
+    private void girar()
+    {
+        int monto = (int) spinnerMonto.getValue();
+        char tipo = obtenerTipoDeApuesta();
+
+        int numeroRuleta = Ruleta.girarRuleta();
+        boolean acierto = Ruleta.evaluarResultado(numeroRuleta, tipo);
+        int dineroModificado = Ruleta.modificadorGanarPerder(monto, acierto);
+        Ruleta.apuestaNeta(dineroModificado);
+        Ruleta.registrarResultado(numeroRuleta, monto, acierto);
+
+    }
+    private char obtenerTipoDeApuesta()
+    {
+        char charRetorno = ' ';
+        if (opcionTipoApuestaParidad.isSelected())
+        {
+            if (opcionParidadPar.isSelected())
+            {
+                charRetorno = 'P';
+            }
+            else
+                charRetorno = 'I';
+        }
+        if (opcionTipoApuestaColor.isSelected())
+        {
+            if (opcionColorNegro.isSelected())
+            {
+                charRetorno = 'N';
+            }
+            else
+                charRetorno = 'R';
+        }
+        return charRetorno;
     }
 }
