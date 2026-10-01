@@ -4,6 +4,17 @@ import java.awt.event.ActionListener;
 
 public class VentanaRuleta
 {
+    private static final int ALTO_FILA = 25;
+    private static final int ANCHO_OPCIONES = 80;
+    private static final int ANCHO_TEXTO = 220;
+    private static final int POS_Y_TIPO_APUESTA = 20;
+    private static final int POS_Y_PARIDAD_APUESTA = 50;
+    private static final int POS_Y_COLOR_APUESTA = 80;
+    private static final int POS_X_TEXTO = 20;
+    private static final int POS_X_OPCION1 = 320;
+    private static final int POS_X_OPCION2 = 420;
+
+
     private final JFrame frame = new JFrame("Ruleta");
 
     private final JLabel  lblTipoApuesta = new JLabel("Seleccciona tu tipo de apuesta");
@@ -23,6 +34,7 @@ public class VentanaRuleta
     {
         frame.setSize(640,480);
         frame.setLayout(null);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         opcionTipoApuestaParidad.setSelected(true);
@@ -31,23 +43,23 @@ public class VentanaRuleta
         ButtonGroup grupoTipoApuesta = new ButtonGroup(); //hace que sean exlcuyentes
         grupoTipoApuesta.add(opcionTipoApuestaParidad);
         grupoTipoApuesta.add(opcionTipoApuestaColor);
-        lblTipoApuesta.setBounds(20,20,180,25);
-        opcionTipoApuestaParidad.setBounds(320,20,80,25);
-        opcionTipoApuestaColor.setBounds(420,20,80,25);
+        lblTipoApuesta.setBounds(POS_X_TEXTO,POS_Y_TIPO_APUESTA,ANCHO_TEXTO,ALTO_FILA);
+        opcionTipoApuestaParidad.setBounds(POS_X_OPCION1,POS_Y_TIPO_APUESTA,ANCHO_OPCIONES,ALTO_FILA);
+        opcionTipoApuestaColor.setBounds(POS_X_OPCION2,POS_Y_TIPO_APUESTA,ANCHO_OPCIONES,ALTO_FILA);
 
         ButtonGroup grupoParidad = new ButtonGroup();
         grupoParidad.add(opcionParidadImpar);
         grupoParidad.add(opcionParidadPar);
-        lblParidad.setBounds(20,50,220,25);
-        opcionParidadImpar.setBounds(320,50,80,25);
-        opcionParidadPar.setBounds(420,50,80,25);
+        lblParidad.setBounds(POS_X_TEXTO,POS_Y_PARIDAD_APUESTA,ANCHO_TEXTO,ALTO_FILA);
+        opcionParidadImpar.setBounds(POS_X_OPCION1,POS_Y_PARIDAD_APUESTA,ANCHO_OPCIONES, ALTO_FILA);
+        opcionParidadPar.setBounds(POS_X_OPCION2,POS_Y_PARIDAD_APUESTA,ANCHO_OPCIONES,ALTO_FILA);
 
         ButtonGroup grupoColor = new ButtonGroup();
         grupoColor.add(opcionColorNegro);
         grupoColor.add(opcionColorRojo);
-        lblColor.setBounds(20,80,220,25);
-        opcionColorNegro.setBounds(320,80,80,25);
-        opcionColorRojo.setBounds(420,80,80,25);
+        lblColor.setBounds(POS_X_TEXTO,POS_Y_COLOR_APUESTA,ANCHO_TEXTO,ALTO_FILA);
+        opcionColorNegro.setBounds(POS_X_OPCION1,POS_Y_COLOR_APUESTA,ANCHO_OPCIONES,ALTO_FILA);
+        opcionColorRojo.setBounds(POS_X_OPCION2,POS_Y_COLOR_APUESTA,ANCHO_OPCIONES,ALTO_FILA);
 
         opcionColorRojo.setEnabled(false);
         opcionColorNegro.setEnabled(false);
