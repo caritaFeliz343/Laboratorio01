@@ -33,6 +33,7 @@ public class VentanaRuleta
     private final JRadioButton opcionColorNegro = new JRadioButton("Negro");
 
     private final JSpinner spinnerMonto = new JSpinner(new SpinnerNumberModel(MONTO_INICIAL, MONTO_MINIMO, MONTO_MAXIMO, MONTO_PASO));
+    private final JTextField textFieldBalance = new JTextField("",10);
 
     private final JButton btnGirar = new JButton("Girar");
     private final JLabel lblResultado = new JLabel("");
@@ -53,11 +54,13 @@ public class VentanaRuleta
         agregarFila("Selecciona el color de tu apuesta",2,opcionColorNegro,opcionColorRojo);
         agregarFila("Selecciona la cantidad a apostar",3,spinnerMonto);
         agregarFila("",4,btnGirar);
-        agregarFila("Resultado de la ruleta",5,lblResultado);
+        agregarFila("Saldo", 5,textFieldBalance);
+        agregarFila("Resultado de la ruleta",6,lblResultado);
         btnGirar.addActionListener(e -> girar());
 
         opcionColorRojo.setEnabled(false);
         opcionColorNegro.setEnabled(false);
+        textFieldBalance.setEditable(false);
         ActionListener saberTipoApuestaSelec = e ->
         {
             boolean esPar = opcionTipoApuestaParidad.isSelected();
@@ -123,6 +126,16 @@ public class VentanaRuleta
         frame.add(etiqueta);
         frame.add(lbl);
     }
+    private void agregarFila(String texto, int numeroFila, JTextField campoTexto)
+    {
+        int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
+        campoTexto.setBounds(POS_X_OPCION1,posicionY,ANCHO_RESULTADO,ALTO_FILA);
+
+        JLabel etiqueta = new JLabel(texto);
+        etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
+        frame.add(etiqueta);
+        frame.add(campoTexto);
+    }
 
     private void girar()
     {
@@ -172,6 +185,7 @@ public class VentanaRuleta
             resultado = "Perdiste...";
         }
         lblResultado.setText("Número " + numero + "("+colorOriginal+")" + " | Apuesta Tipo " + tipo + " | Monto=$" + monto + " | " + resultado);
+        mostrarBalanceTotal();
     }
     private String obtenerColorResultado(int numero)
     {
@@ -187,5 +201,9 @@ public class VentanaRuleta
         }
         return colorRetornado;
     }
-
+    private void mostrarBalanceTotal()
+    {
+         String dineroModificado = Integer.toString(Ruleta.contadorDinero);
+         textFieldBalance.setText(dineroModificado);
+    }
 }
