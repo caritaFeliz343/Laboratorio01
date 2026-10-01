@@ -7,6 +7,7 @@ public class VentanaRuleta
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
+    private static final int ANCHO_RESULTADO = 560;
     private static final int POS_Y_INICIAL = 20;
     private static final int SEPARACION_Y = 30;
     private static final int POS_X_TEXTO = 20;
@@ -32,7 +33,10 @@ public class VentanaRuleta
 
     private final JSpinner spinnerMonto = new JSpinner(new SpinnerNumberModel(MONTO_INICIAL, MONTO_MINIMO, MONTO_MAXIMO, MONTO_PASO));
 
-    public VentanaRuleta(Ruleta ruleta)
+    private final JButton btnGirar = new JButton("Girar");
+    private final JLabel lblResultado = new JLabel("");
+
+    public VentanaRuleta()
     {
         frame.setSize(640,480);
         frame.setLayout(null);
@@ -47,6 +51,9 @@ public class VentanaRuleta
         agregarFila("Selecciona la paridad de tu apuesta",1,opcionParidadImpar,opcionParidadPar);
         agregarFila("Selecciona el color de tu apuesta",2,opcionColorNegro,opcionColorRojo);
         agregarFila("Selecciona la cantidad a apostar",3,spinnerMonto);
+        agregarFila("",4,btnGirar);
+        agregarFila("Resultado",5,lblResultado);
+        btnGirar.addActionListener(e -> girar());
 
         opcionColorRojo.setEnabled(false);
         opcionColorNegro.setEnabled(false);
@@ -95,6 +102,27 @@ public class VentanaRuleta
         frame.add(etiqueta);
         frame.add(spinnerA);
     }
+    private void agregarFila(String texto, int numeroFila, JButton botonA)
+    {
+        int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
+        botonA.setBounds(POS_X_OPCION1,posicionY,ANCHO_OPCIONES,ALTO_FILA);
+
+        JLabel etiqueta = new JLabel(texto);
+        etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
+        frame.add(botonA);
+        frame.add(etiqueta);
+    }
+    private void agregarFila(String texto, int numeroFila, JLabel lbl)
+    {
+        int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
+        lbl.setBounds(POS_X_OPCION2,posicionY,ANCHO_RESULTADO,ALTO_FILA);
+
+        JLabel etiqueta = new JLabel(texto);
+        etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
+        frame.add(etiqueta);
+        frame.add(lbl);
+    }
+
     private void girar()
     {
         int monto = (int) spinnerMonto.getValue();
@@ -105,7 +133,7 @@ public class VentanaRuleta
         int dineroModificado = Ruleta.modificadorGanarPerder(monto, acierto);
         Ruleta.apuestaNeta(dineroModificado);
         Ruleta.registrarResultado(numeroRuleta, monto, acierto);
-
+        mostrarResultado(numeroRuleta, monto, acierto);
     }
     private char obtenerTipoDeApuesta()
     {
@@ -130,4 +158,18 @@ public class VentanaRuleta
         }
         return charRetorno;
     }
+    private void mostrarResultado(int numero, int monto, boolean acierto)
+    {
+        String resultado = "";
+        if (acierto)
+        {
+            resultado = "Ganaste!!!";
+        }
+        else
+        {
+            resultado = "Perdiste...";
+        }
+        lblResultado.setText("Número " + numero + " | Monto=$" + monto + " | " + resultado);
+    }
+
 }
