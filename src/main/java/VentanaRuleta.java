@@ -19,7 +19,6 @@ public class VentanaRuleta
     private static final int MONTO_MAXIMO = 5000;
     private static final int MONTO_PASO = 1;
 
-    public static Ruleta ruleta = new Ruleta();
 
     private final JFrame frame = new JFrame("Ruleta");
 
