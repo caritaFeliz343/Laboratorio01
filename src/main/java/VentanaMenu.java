@@ -22,6 +22,7 @@ public class VentanaMenu
         frame.add(lblSalir);
         frame.add(btnSalir);
         btnJugar.addActionListener(e -> irAJugarRuleta());
+        btnSalir.addActionListener(e -> irAVentanaSaludo());
 
     }
     public void mostrarVentana()
@@ -34,7 +35,12 @@ public class VentanaMenu
         frame.dispose();
         VentanaRuleta ventanaRuleta = new VentanaRuleta();
         ventanaRuleta.mostrarVentanaRuleta();
-
+    }
+    private void irAVentanaSaludo()
+    {
+        frame.dispose();
+        VentanaSaludo ventanaSaludo = new VentanaSaludo();
+        ventanaSaludo.mostrarVentanaSaludo();
     }
 }
 
