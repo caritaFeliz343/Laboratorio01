@@ -38,6 +38,8 @@ public class VentanaRuleta
     private final JButton btnGirar = new JButton("Girar");
     private final JLabel lblResultado = new JLabel("");
 
+    private final JButton btnSalir = new JButton("Salir");
+
     public VentanaRuleta()
     {
         frame.setSize(640,480);
@@ -56,7 +58,9 @@ public class VentanaRuleta
         agregarFila("",4,btnGirar);
         agregarFila("Saldo", 5,textFieldBalance);
         agregarFila("Resultado de la ruleta",6,lblResultado);
+        agregarFila("Salir de la ruleta",7,btnSalir);
         btnGirar.addActionListener(e -> girar());
+        btnSalir.addActionListener(e -> irAVentanaMenu());
 
         opcionColorRojo.setEnabled(false);
         opcionColorNegro.setEnabled(false);
@@ -205,5 +209,11 @@ public class VentanaRuleta
     {
          String dineroModificado = Integer.toString(Ruleta.contadorDinero);
          textFieldBalance.setText(dineroModificado);
+    }
+    private void irAVentanaMenu()
+    {
+        frame.dispose();
+        VentanaMenu ventanaMenu = new VentanaMenu();
+        ventanaMenu.mostrarVentana();
     }
 }
