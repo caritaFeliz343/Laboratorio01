@@ -10,15 +10,20 @@ public class Ruleta {
     private static int historialSize = 0;
     private static Random rng = new Random();
     private static Scanner miScanner = new Scanner(System.in);
+    private int saldo;
     private static int[] numerosRojos = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
 
-    /**
-     * Método principal: inicia el programa llamando al menú.
-     */
-
+    public Ruleta(int saldoInicial)
+    {
+        this.saldo = Math.max(0, saldoInicial);
+    }
+    public Ruleta()
+    {
+        this(0);
+    }
 
     /**
      * Controla el flujo principal del programa mostrando
@@ -243,5 +248,10 @@ public class Ruleta {
     public static int getContadorDinero()
     {
         return contadorDinero;
+    }
+
+    public int getSaldo()
+    {
+        return saldo;
     }
 }
