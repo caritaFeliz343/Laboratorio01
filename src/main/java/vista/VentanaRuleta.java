@@ -23,7 +23,7 @@ public class VentanaRuleta
     private static final int MONTO_PASO = 1;
 
 
-    private final JFrame frame = new JFrame("modelo.Ruleta");
+    private final JFrame frame = new JFrame("Ruleta");
 
     private final JRadioButton opcionTipoApuestaParidad = new JRadioButton("Paridad");
     private final JRadioButton opcionTipoApuestaColor = new JRadioButton("Color");

@@ -6,7 +6,7 @@ import java.awt.*;
 public class VentanaMenu
 {
     //TODO: tiene que: dejar ir a jugar, cerrar sesion
-    private final JFrame frame = new JFrame("Menu modelo.Ruleta");
+    private final JFrame frame = new JFrame("Menu Ruleta");
     private final JButton btnJugar = new JButton("Jugar");
     private final JButton btnSalir = new JButton("Salir");
     private final JLabel lblSalir = new JLabel("Cerrar sesion y volver a la pantalla de bienvenida");

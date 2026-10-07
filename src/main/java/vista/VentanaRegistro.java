@@ -9,7 +9,7 @@ public class VentanaRegistro {
     // --- Lista dinámica de usuarios ---
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Registro - Casino Black Cat");
-    private final JLabel lblUsuario = new JLabel("modelo.Usuario:");
+    private final JLabel lblUsuario = new JLabel("Usuario:");
     private final JTextField txtUsuario = new JTextField();
     private final JLabel lblClave = new JLabel("Clave:");
     private final JPasswordField txtClave = new JPasswordField();
@@ -61,7 +61,7 @@ public class VentanaRegistro {
         if (validarRegistro(username,clave,nombr))
         {
             VentanaLogin.USUARIOS.add(new Usuario(username,clave,nombr));
-            JOptionPane.showMessageDialog(frame, "modelo.Usuario registrado con exito.\nPorfavor inicie sesion.");
+            JOptionPane.showMessageDialog(frame, "Usuario registrado con exito.\nPorfavor inicie sesion.");
             irALogin();
         }
         else
