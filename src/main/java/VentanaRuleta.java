@@ -206,7 +206,7 @@ public class VentanaRuleta
     }
     private void mostrarBalanceTotal()
     {
-         String dineroModificado = Integer.toString(Ruleta.contadorDinero);
+         String dineroModificado = Integer.toString(Ruleta.getContadorDinero());
          textFieldBalance.setText(dineroModificado);
     }
     private void irAVentanaMenu()

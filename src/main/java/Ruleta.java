@@ -1,16 +1,16 @@
 import java.util.Random;
 import java.util.Scanner;
 public class Ruleta {
-    public static final int MAX_HISTORIAL = 100;
-    public static final int NUMERO_MAXIMO_RULETA = 37;
-    public static int[] historialNumeros = new int[MAX_HISTORIAL];
-    public static int[] historialApuestas = new int[MAX_HISTORIAL];
-    public static boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
-    public static int contadorDinero = 0;
-    public static int historialSize = 0;
-    public static Random rng = new Random();
-    public static Scanner miScanner = new Scanner(System.in);
-    public static int[] numerosRojos = {
+    private static final int MAX_HISTORIAL = 100;
+    private static final int NUMERO_MAXIMO_RULETA = 37;
+    private static int[] historialNumeros = new int[MAX_HISTORIAL];
+    private static int[] historialApuestas = new int[MAX_HISTORIAL];
+    private static boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
+    private static int contadorDinero = 0;
+    private static int historialSize = 0;
+    private static Random rng = new Random();
+    private static Scanner miScanner = new Scanner(System.in);
+    private static int[] numerosRojos = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
     };
@@ -238,5 +238,10 @@ public class Ruleta {
 
         // Ganancia o perdida neta
         System.out.println("Tu apuesta neta es: $"+contadorDinero);
+    }
+
+    public static int getContadorDinero()
+    {
+        return contadorDinero;
     }
 }
