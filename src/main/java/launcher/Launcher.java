@@ -1,6 +1,8 @@
 package launcher;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
+import controlador.SessionController;
+import vista.VentanaSaludo;
 import javax.swing.*;
 
 public class Launcher
@@ -14,7 +16,8 @@ public class Launcher
         {
             e.printStackTrace();
         }
-        VentanaSaludo saludo = new VentanaSaludo();
+        SessionController sesion = new SessionController();
+        VentanaSaludo saludo = new VentanaSaludo(sesion);
         saludo.mostrarVentanaSaludo();
     }
 }

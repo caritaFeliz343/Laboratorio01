@@ -2,16 +2,19 @@ package vista;
 
 import javax.swing.*;
 import java.awt.*;
+import controlador.SessionController;
 
 public class VentanaSaludo
 {
+    private SessionController sesion;
     private final JFrame frame = new JFrame("Casino Black Cat");
     private final JLabel txtBienvenida = new JLabel("Bienvenido al casino Black Cat");
     private final JLabel txtOpciones = new JLabel("¿Que deseas hacer?");
     private final JButton btnLogin = new JButton("Iniciar sesion");
     private final JButton btnRegistro = new JButton("Registrarse");
-    public VentanaSaludo()
+    public VentanaSaludo(SessionController sesion)
     {
+        this.sesion = sesion;
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(4,1,10,10));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,13 +35,13 @@ public class VentanaSaludo
     private void irALogin()
     {
         frame.dispose();
-        VentanaLogin ventanaLogin = new VentanaLogin();
+        VentanaLogin ventanaLogin = new VentanaLogin(sesion);
         ventanaLogin.mostrarVentana();
     }
     private void irARegistro()
     {
         frame.dispose();
-        VentanaRegistro ventanaRegistro = new VentanaRegistro();
+        VentanaRegistro ventanaRegistro = new VentanaRegistro(sesion);
         ventanaRegistro.mostrarVentana();
     }
 }

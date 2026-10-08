@@ -42,7 +42,7 @@ public class VentanaLogin {
     public void regresar()
     {
         frame.dispose();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo();
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     public void mostrarVentana()
@@ -64,7 +64,7 @@ public class VentanaLogin {
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());
             frame.dispose();
-            VentanaMenu ventanaMenu = new VentanaMenu();
+            VentanaMenu ventanaMenu = new VentanaMenu(sesion);
             ventanaMenu.mostrarVentana();
         }
         else

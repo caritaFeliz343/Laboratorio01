@@ -4,9 +4,11 @@ import modelo.Ruleta;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import controlador.SessionController;
 
 public class VentanaRuleta
 {
+    private SessionController sesion;
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
@@ -42,8 +44,9 @@ public class VentanaRuleta
 
     private final JButton btnSalir = new JButton("Salir");
 
-    public VentanaRuleta()
+    public VentanaRuleta(SessionController sesion)
     {
+        this.sesion = sesion;
         frame.setSize(640,480);
         frame.setLayout(null);
         frame.setResizable(false);
@@ -215,7 +218,7 @@ public class VentanaRuleta
     private void irAVentanaMenu()
     {
         frame.dispose();
-        VentanaMenu ventanaMenu = new VentanaMenu();
+        VentanaMenu ventanaMenu = new VentanaMenu(sesion);
         ventanaMenu.mostrarVentana();
     }
 }
