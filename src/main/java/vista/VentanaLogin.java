@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaLogin {
-    private final SessionController sesion = new SessionController();
+    private final SessionController sesion;
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -19,7 +19,8 @@ public class VentanaLogin {
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
-    public VentanaLogin() {
+    public VentanaLogin(SessionController sesion) {
+        this.sesion = sesion;
 
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(3,2,10,10));
