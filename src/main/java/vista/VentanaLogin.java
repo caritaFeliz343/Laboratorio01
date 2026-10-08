@@ -1,15 +1,12 @@
 package vista;
 
-import modelo.Usuario;
+import controlador.SessionController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VentanaLogin {
-    // --- Lista dinámica de usuarios ---
-    public static final List<Usuario> USUARIOS = new ArrayList<>();
+    private final SessionController sesion = new SessionController();
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -23,8 +20,6 @@ public class VentanaLogin {
      * Configura sus componentes y eventos.
      */
     public VentanaLogin() {
-        USUARIOS.add(new Usuario("caritaFeliz343","hola123","Christian"));
-        USUARIOS.add(new Usuario("sebasApp","321adios","Sebastian"));
 
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(3,2,10,10));
@@ -63,10 +58,10 @@ public class VentanaLogin {
     {
         String usuario = txtUsuario.getText();
         String clave = new String(txtClave.getPassword());
-        String validadoNombre = validarCredenciales(usuario,clave);
-        if (!validadoNombre.isEmpty())
+        boolean validadoUsuario = sesion.iniciarSession(usuario,clave);
+        if (validadoUsuario)
         {
-            JOptionPane.showMessageDialog(frame, "Bienvenido, " + validadoNombre);
+            JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());
             frame.dispose();
             VentanaMenu ventanaMenu = new VentanaMenu();
             ventanaMenu.mostrarVentana();
@@ -75,24 +70,5 @@ public class VentanaLogin {
         {
             JOptionPane.showMessageDialog(frame, "Ingrese el nombre de usuario o contraseña correctos","Error",JOptionPane.WARNING_MESSAGE);
         }
-    }
-    /**
-     * Valida las credenciales ingresadas utilizando la lista de usuarios.
-     *
-     * @param u nombre de usuario ingresado
-     * @param p contraseña ingresada
-     * @return el nombre del usuario si las credenciales son válidas o una cadena vacía
-    si no existe una coincidencia
-     */
-    private String validarCredenciales(String u, String p)
-    {
-        for (Usuario usuario : USUARIOS)
-        {
-            if (usuario.validarCredenciales(u,p))
-            {
-                return usuario.getNombre();
-            }
-        }
-        return "";
     }
 }
