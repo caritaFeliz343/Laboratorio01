@@ -1,5 +1,7 @@
 package vista;
 
+import controlador.RuletaController;
+import modelo.Resultado;
 import modelo.Ruleta;
 
 import javax.swing.*;
@@ -9,6 +11,7 @@ import controlador.SessionController;
 public class VentanaRuleta
 {
     private final SessionController sesion;
+    private final RuletaController ruletaController;
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
@@ -44,9 +47,10 @@ public class VentanaRuleta
 
     private final JButton btnSalir = new JButton("Salir");
 
-    public VentanaRuleta(SessionController sesion)
+    public VentanaRuleta(SessionController sesion, RuletaController ruletaController)
     {
         this.sesion = sesion;
+        this.ruletaController = ruletaController;
         frame.setSize(640,480);
         frame.setLayout(null);
         frame.setResizable(false);
@@ -82,7 +86,7 @@ public class VentanaRuleta
         };
         opcionTipoApuestaParidad.addActionListener(saberTipoApuestaSelec);
         opcionTipoApuestaColor.addActionListener(saberTipoApuestaSelec);
-
+        mostrarBalanceTotal();
     }
     public void mostrarVentanaRuleta()
     {
@@ -150,13 +154,18 @@ public class VentanaRuleta
     {
         int monto = (int) spinnerMonto.getValue();
         char tipo = obtenerTipoDeApuesta();
-
+        try
+        {
+            Resultado resultado = ruletaController.realizarApuesta(tipo, monto);
+            mostrarResultado(resultado);
+        }
+        catch (IllegalArgumentException e)
+        {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Apuesta inválida", JOptionPane.WARNING_MESSAGE);
+        }
         int numeroRuleta = Ruleta.girarRuleta();
         boolean acierto = Ruleta.evaluarResultado(numeroRuleta, tipo);
         int dineroModificado = Ruleta.modificadorGanarPerder(monto, acierto);
-        Ruleta.apuestaNeta(dineroModificado);
-        Ruleta.registrarResultado(numeroRuleta, monto, acierto);
-        mostrarResultado(numeroRuleta, tipo, monto, acierto);
     }
     private char obtenerTipoDeApuesta()
     {
@@ -181,25 +190,25 @@ public class VentanaRuleta
         }
         return charRetorno;
     }
-    private void mostrarResultado(int numero, char tipo, int monto, boolean acierto)
+    private void mostrarResultado(Resultado resultado)
     {
-        String colorOriginal = obtenerColorResultado(numero);
-        String resultado;
-        if (acierto)
+        String colorOriginal = obtenerColorResultado(resultado);
+        String veredicto;
+        if (resultado.getEsAcierto())
         {
-            resultado = "Ganaste!!!";
+            veredicto = "Ganaste!!!";
         }
         else
         {
-            resultado = "Perdiste...";
+            veredicto = "Perdiste...";
         }
-        lblResultado.setText("Número " + numero + "("+colorOriginal+")" + " | Apuesta Tipo " + tipo + " | Monto=$" + monto + " | " + resultado);
+        lblResultado.setText("Número " + resultado.getNumeroRuleta() + "("+colorOriginal+")" + " | Apuesta Tipo " + resultado.getTipo() + " | Monto=$" + resultado.getMonto() + " | " + veredicto);
         mostrarBalanceTotal();
     }
-    private String obtenerColorResultado(int numero)
+    private String obtenerColorResultado(Resultado resultado)
     {
         String colorRetornado = " ";
-        boolean esRojo = Ruleta.esRojo(numero);
+        boolean esRojo = resultado.getEsRojo();
         if (esRojo)
         {
             colorRetornado = "Rojo";
@@ -212,13 +221,13 @@ public class VentanaRuleta
     }
     private void mostrarBalanceTotal()
     {
-         String dineroModificado = Integer.toString(Ruleta.getContadorDinero());
-         textFieldBalance.setText(dineroModificado);
+         String textoSaldo = Integer.toString(ruletaController.getSaldo());
+         textFieldBalance.setText(textoSaldo);
     }
     private void irAVentanaMenu()
     {
         frame.dispose();
-        VentanaMenu ventanaMenu = new VentanaMenu(sesion);
+        VentanaMenu ventanaMenu = new VentanaMenu(sesion,ruletaController);
         ventanaMenu.mostrarVentana();
     }
 }

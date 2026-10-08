@@ -2,11 +2,14 @@ package vista;
 
 import javax.swing.*;
 import java.awt.*;
+
+import controlador.RuletaController;
 import controlador.SessionController;
 
 public class VentanaMenu
 {
     private final SessionController sesion;
+    private final RuletaController ruletaController;
     //TODO: tiene que: dejar ir a jugar, cerrar sesion
     private final JFrame frame = new JFrame("Menu Ruleta");
     private final JButton btnJugar = new JButton("Jugar");
@@ -14,9 +17,10 @@ public class VentanaMenu
     private final JLabel lblSalir = new JLabel("Cerrar sesion y volver a la pantalla de bienvenida");
     private final JLabel lblJugar = new JLabel("Jugar a la ruleta");
 
-    public VentanaMenu(SessionController sesion)
+    public VentanaMenu(SessionController sesion, RuletaController ruletaController)
     {
         this.sesion = sesion;
+        this.ruletaController = ruletaController;
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(3,2,10,10));
         frame.setResizable(false);
@@ -38,7 +42,7 @@ public class VentanaMenu
     private void irAJugarRuleta()
     {
         frame.dispose();
-        VentanaRuleta ventanaRuleta = new VentanaRuleta(sesion);
+        VentanaRuleta ventanaRuleta = new VentanaRuleta(sesion, ruletaController);
         ventanaRuleta.mostrarVentanaRuleta();
     }
     private void irAVentanaSaludo()

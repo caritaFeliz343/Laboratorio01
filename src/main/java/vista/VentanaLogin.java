@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.RuletaController;
 import controlador.SessionController;
 
 import javax.swing.*;
@@ -64,7 +65,8 @@ public class VentanaLogin {
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());
             frame.dispose();
-            VentanaMenu ventanaMenu = new VentanaMenu(sesion);
+            RuletaController ruletaController = new RuletaController();
+            VentanaMenu ventanaMenu = new VentanaMenu(sesion, ruletaController);
             ventanaMenu.mostrarVentana();
         }
         else
