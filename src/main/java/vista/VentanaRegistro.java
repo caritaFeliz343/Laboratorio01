@@ -1,12 +1,12 @@
 package vista;
 
+import controlador.SessionController;
 import modelo.Usuario;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRegistro {
-    // --- Lista dinámica de usuarios ---
+    private final SessionController sesion;
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Registro - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -18,8 +18,9 @@ public class VentanaRegistro {
     private final JButton btnRegistrarse = new JButton("Registrarse");
     private final JButton btnRegresar = new JButton("Regresar");
 
-    public VentanaRegistro()
+    public VentanaRegistro(SessionController sesion)
     {
+        this.sesion = sesion;
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(4,2,10,10));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,13 +40,13 @@ public class VentanaRegistro {
     private void regresar()
     {
         frame.dispose();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo();
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     private void irALogin()
     {
         frame.dispose();
-        VentanaLogin ventanaLogin = new VentanaLogin();
+        VentanaLogin ventanaLogin = new VentanaLogin(sesion);
         ventanaLogin.mostrarVentana();
     }
     public void mostrarVentana()
@@ -58,24 +59,16 @@ public class VentanaRegistro {
         String username = txtUsuario.getText();
         String clave = new String(txtClave.getPassword());
         String nombr = txtNombre.getText();
-        if (validarRegistro(username,clave,nombr))
+
+        try
         {
-            VentanaLogin.USUARIOS.add(new Usuario(username,clave,nombr));
+            sesion.registrarUsuario(username,clave,nombr);
             JOptionPane.showMessageDialog(frame, "Usuario registrado con exito.\nPorfavor inicie sesion.");
             irALogin();
         }
-        else
+        catch (IllegalArgumentException e)
         {
             JOptionPane.showMessageDialog(frame, "Todos los campos son obligatorios","Error critico!!!!",JOptionPane.ERROR_MESSAGE);
         }
-    }
-    private boolean validarRegistro(String u, String c, String n)
-    {
-        boolean registroValidado = false;
-        if (!u.isEmpty() && !c.isEmpty()  && !n.isEmpty() )
-        {
-            registroValidado = true;
-        }
-        return registroValidado;
     }
 }
