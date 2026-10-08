@@ -1,7 +1,6 @@
 package vista;
 
 import controlador.SessionController;
-import modelo.Usuario;
 import javax.swing.*;
 import java.awt.*;
 

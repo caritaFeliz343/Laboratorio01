@@ -6,7 +6,7 @@ import controlador.SessionController;
 
 public class VentanaMenu
 {
-    private SessionController sesion;
+    private final SessionController sesion;
     //TODO: tiene que: dejar ir a jugar, cerrar sesion
     private final JFrame frame = new JFrame("Menu Ruleta");
     private final JButton btnJugar = new JButton("Jugar");
@@ -44,7 +44,7 @@ public class VentanaMenu
     private void irAVentanaSaludo()
     {
         frame.dispose();
-        sesion.cerrarSession();
+        sesion.cerrarSesion();
         VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
         ventanaSaludo.mostrarVentanaSaludo();
     }

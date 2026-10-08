@@ -59,7 +59,7 @@ public class VentanaLogin {
     {
         String usuario = txtUsuario.getText();
         String clave = new String(txtClave.getPassword());
-        boolean validadoUsuario = sesion.iniciarSession(usuario,clave);
+        boolean validadoUsuario = sesion.iniciarSesion(usuario,clave);
         if (validadoUsuario)
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());

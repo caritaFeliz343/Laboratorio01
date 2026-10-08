@@ -6,7 +6,7 @@ import controlador.SessionController;
 
 public class VentanaSaludo
 {
-    private SessionController sesion;
+    private final SessionController sesion;
     private final JFrame frame = new JFrame("Casino Black Cat");
     private final JLabel txtBienvenida = new JLabel("Bienvenido al casino Black Cat");
     private final JLabel txtOpciones = new JLabel("¿Que deseas hacer?");

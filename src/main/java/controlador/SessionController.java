@@ -15,9 +15,9 @@ public class SessionController
         usuarioActual = new Usuario(usuario, clave, nombre);
     }
 
-    public boolean iniciarSession(String usuario, String clave)
+    public boolean iniciarSesion(String usuario, String clave)
     {
-        if (usuario == null) return false;
+        if (usuarioActual == null) return false;
         return usuarioActual.validarCredenciales(usuario, clave);
     }
     public boolean hayUsuario()
@@ -35,7 +35,7 @@ public class SessionController
         return usuarioActual;
     }
 
-    public void cerrarSession()
+    public void cerrarSesion()
     {
         usuarioActual = null;
     }

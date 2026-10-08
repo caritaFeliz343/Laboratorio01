@@ -8,7 +8,7 @@ import controlador.SessionController;
 
 public class VentanaRuleta
 {
-    private SessionController sesion;
+    private final SessionController sesion;
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
