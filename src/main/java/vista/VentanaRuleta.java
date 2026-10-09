@@ -1,16 +1,17 @@
 package vista;
 
+import controlador.ResultadoController;
 import controlador.RuletaController;
 import modelo.Resultado;
 import modelo.TipoApuesta;
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import controlador.SessionController;
 
 public class VentanaRuleta
 {
     private final SessionController sesion;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController = new ResultadoController();
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
@@ -132,32 +133,8 @@ public class VentanaRuleta
     }
     private void mostrarResultado(Resultado resultado)
     {
-        String colorOriginal = obtenerColorResultado(resultado);
-        String veredicto;
-        if (resultado.getEsAcierto())
-        {
-            veredicto = "Ganaste!!!";
-        }
-        else
-        {
-            veredicto = "Perdiste...";
-        }
-        lblResultado.setText("Número " + resultado.getNumeroRuleta() + "("+colorOriginal+")" + " | Apuesta Tipo " + resultado.getTipo() + " | Monto=$" + resultado.getMonto() + " | " + veredicto);
+        lblResultado.setText(resultadoController.getTextoResultado(resultado));
         mostrarBalanceTotal();
-    }
-    private String obtenerColorResultado(Resultado resultado)
-    {
-        String colorRetornado;
-        boolean esRojo = resultado.getEsRojo();
-        if (esRojo)
-        {
-            colorRetornado = "Rojo";
-        }
-        else
-        {
-            colorRetornado = "Negro";
-        }
-        return colorRetornado;
     }
     private void mostrarBalanceTotal()
     {
