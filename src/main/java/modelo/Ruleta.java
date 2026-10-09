@@ -29,36 +29,20 @@ public class Ruleta {
         int numeroRandom = rng.nextInt(0,NUMERO_MAXIMO_RULETA);
         return numeroRandom;
     }
-    public static boolean evaluarResultado(int numero, char tipo)
+    public static boolean evaluarResultado(int numero, TipoApuesta tipo)
     // true si acerto, false si no
     {
-        boolean numeroRojo = esRojo(numero);
-        boolean resultado = false;
-        if (tipo == 'R' && numeroRojo)
+        if (numero == 0)
         {
-            resultado = true;
+            return false;
         }
-        else if (tipo == 'R' && !numeroRojo)
+        return switch (tipo)
         {
-            resultado = false;
-        }
-        else if (tipo == 'N' && !numeroRojo)
-        {
-            resultado = true;
-        }
-        else if (tipo == 'P' && numero % 2 == 0)
-        {
-            resultado = true;
-        }
-        else if (tipo == 'I' && numero % 2 == 0)
-        {
-            resultado = false;
-        }
-        else if (tipo == 'I' && numero % 2 != 0)
-        {
-            resultado = true;
-        }
-        return resultado;
+            case ROJO -> esRojo(numero);
+            case NEGRO -> !esRojo(numero);
+            case PAR -> numero % 2 == 0;
+            case IMPAR -> numero % 2 != 0;
+        };
     }
     public static boolean esRojo(int n)
     {
@@ -84,28 +68,6 @@ public class Ruleta {
         historialAciertos[historialSize] = acierto;
         historialSize++;
     }
-    public int totalApostado()
-    {
-        int sumaApuestas = 0;
-        for (int i = 0; i < historialSize ; i++)
-        {
-            sumaApuestas += historialApuestas[i];
-        }
-        return sumaApuestas;
-    }
-    public int totalAciertos()
-    {
-        // Cantidad total de aciertos
-        int sumaAciertos = 0;
-        for (int i = 0; i < historialSize ; i++)
-        {
-            if (historialAciertos[i])
-            {
-                sumaAciertos++;
-            }
-        }
-        return sumaAciertos;
-    }
 
     public static int modificadorGanarPerder(int monto, boolean acierto)
     {
@@ -119,19 +81,13 @@ public class Ruleta {
         }
         return monto;
     }
-    public int apuestaNeta(int numero)
-    {
-        int dineroDespuesModificador = numero;
-        saldo += dineroDespuesModificador;
-        return saldo;
-    }
 
     public int getSaldo()
     {
         return saldo;
     }
 
-    public Resultado apostar(char tipo, int monto)
+    public Resultado apostar(TipoApuesta tipo, int monto)
     {
         if (monto < 1)
         {
@@ -144,7 +100,7 @@ public class Ruleta {
         int numeroRuleta = girarRuleta();
         boolean acierto = evaluarResultado(numeroRuleta, tipo);
         saldo += modificadorGanarPerder(monto, acierto);
-        registrarResultado(numeroRuleta, tipo, acierto);
+        registrarResultado(numeroRuleta, monto, acierto);
         return new Resultado(numeroRuleta, tipo, esRojo(numeroRuleta), acierto, monto);
     }
 }

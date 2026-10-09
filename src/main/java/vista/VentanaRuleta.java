@@ -2,8 +2,7 @@ package vista;
 
 import controlador.RuletaController;
 import modelo.Resultado;
-import modelo.Ruleta;
-
+import modelo.TipoApuesta;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import controlador.SessionController;
@@ -15,6 +14,7 @@ public class VentanaRuleta
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
+    private static final int ANCHO_COMBO = 120;
     private static final int ANCHO_RESULTADO = 560;
     private static final int POS_Y_INICIAL = 20;
     private static final int SEPARACION_Y = 30;
@@ -29,6 +29,8 @@ public class VentanaRuleta
 
 
     private final JFrame frame = new JFrame("Ruleta");
+
+    private final JComboBox<TipoApuesta> cboTipoApuesta = new JComboBox<>(TipoApuesta.values());
 
     private final JRadioButton opcionTipoApuestaParidad = new JRadioButton("Paridad");
     private final JRadioButton opcionTipoApuestaColor = new JRadioButton("Color");
@@ -56,36 +58,15 @@ public class VentanaRuleta
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        opcionTipoApuestaParidad.setSelected(true);
-        opcionParidadImpar.setSelected(true);
-        opcionColorNegro.setSelected(true);
-
-        agregarFila("Selecciona el tipo de apuesta",0,opcionTipoApuestaParidad,opcionTipoApuestaColor);
-        agregarFila("Selecciona la paridad de tu apuesta",1,opcionParidadImpar,opcionParidadPar);
-        agregarFila("Selecciona el color de tu apuesta",2,opcionColorNegro,opcionColorRojo);
-        agregarFila("Selecciona la cantidad a apostar",3,spinnerMonto);
-        agregarFila("",4,btnGirar);
-        agregarFila("Saldo", 5,textFieldBalance);
-        agregarFila("Resultado de la ruleta",6,lblResultado);
-        agregarFila("Salir de la ruleta",7,btnSalir);
+        agregarFila("Selecciona el tipo de apuesta",0,cboTipoApuesta);
+        agregarFila("Selecciona la cantidad a apostar",1,spinnerMonto);
+        agregarFila("",2,btnGirar);
+        agregarFila("Saldo", 3,textFieldBalance);
+        agregarFila("Resultado de la ruleta",4,lblResultado);
+        agregarFila("Salir de la ruleta",5,btnSalir);
         btnGirar.addActionListener(e -> girar());
         btnSalir.addActionListener(e -> irAVentanaMenu());
-
-        opcionColorRojo.setEnabled(false);
-        opcionColorNegro.setEnabled(false);
         textFieldBalance.setEditable(false);
-        ActionListener saberTipoApuestaSelec = e ->
-        {
-            boolean esPar = opcionTipoApuestaParidad.isSelected();
-            opcionParidadImpar.setEnabled(esPar);
-            opcionParidadPar.setEnabled(esPar);
-
-            opcionColorNegro.setEnabled(!esPar);
-            opcionColorRojo.setEnabled(!esPar);
-
-        };
-        opcionTipoApuestaParidad.addActionListener(saberTipoApuestaSelec);
-        opcionTipoApuestaColor.addActionListener(saberTipoApuestaSelec);
         mostrarBalanceTotal();
     }
     public void mostrarVentanaRuleta()
@@ -93,21 +74,15 @@ public class VentanaRuleta
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    private void agregarFila(String texto, int numeroFila,JRadioButton botonA, JRadioButton botonB)
+    private void agregarFila(String texto, int numeroFila,JComboBox<TipoApuesta> cboTipoApuesta)
     {
         int posicionY = numeroFila * SEPARACION_Y + POS_Y_INICIAL;
         JLabel etiqueta = new JLabel(texto);
         etiqueta.setBounds(POS_X_TEXTO,posicionY,ANCHO_TEXTO,ALTO_FILA);
 
-        ButtonGroup grupoGenerico = new ButtonGroup(); // los hace exlcluyentes
-        grupoGenerico.add(botonA);
-        grupoGenerico.add(botonB);
-        botonA.setBounds(POS_X_OPCION1,posicionY,ANCHO_OPCIONES,ALTO_FILA);
-        botonB.setBounds(POS_X_OPCION2,posicionY,ANCHO_OPCIONES,ALTO_FILA);
-
+        cboTipoApuesta.setBounds(POS_X_OPCION1,posicionY,ANCHO_COMBO,ALTO_FILA);
         frame.add(etiqueta);
-        frame.add(botonA);
-        frame.add(botonB);
+        frame.add(cboTipoApuesta);
     }
     private void agregarFila(String texto, int numeroFila,JSpinner spinnerA)
     {
@@ -153,7 +128,7 @@ public class VentanaRuleta
     private void girar()
     {
         int monto = (int) spinnerMonto.getValue();
-        char tipo = obtenerTipoDeApuesta();
+        TipoApuesta tipo = (TipoApuesta) cboTipoApuesta.getSelectedItem();
         try
         {
             Resultado resultado = ruletaController.realizarApuesta(tipo, monto);
@@ -163,32 +138,6 @@ public class VentanaRuleta
         {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Apuesta inválida", JOptionPane.WARNING_MESSAGE);
         }
-        int numeroRuleta = Ruleta.girarRuleta();
-        boolean acierto = Ruleta.evaluarResultado(numeroRuleta, tipo);
-        int dineroModificado = Ruleta.modificadorGanarPerder(monto, acierto);
-    }
-    private char obtenerTipoDeApuesta()
-    {
-        char charRetorno = ' ';
-        if (opcionTipoApuestaParidad.isSelected())
-        {
-            if (opcionParidadPar.isSelected())
-            {
-                charRetorno = 'P';
-            }
-            else
-                charRetorno = 'I';
-        }
-        if (opcionTipoApuestaColor.isSelected())
-        {
-            if (opcionColorNegro.isSelected())
-            {
-                charRetorno = 'N';
-            }
-            else
-                charRetorno = 'R';
-        }
-        return charRetorno;
     }
     private void mostrarResultado(Resultado resultado)
     {
@@ -207,7 +156,7 @@ public class VentanaRuleta
     }
     private String obtenerColorResultado(Resultado resultado)
     {
-        String colorRetornado = " ";
+        String colorRetornado;
         boolean esRojo = resultado.getEsRojo();
         if (esRojo)
         {

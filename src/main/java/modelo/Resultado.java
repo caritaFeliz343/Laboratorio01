@@ -2,16 +2,16 @@ package modelo;
 
 public class Resultado
 {
+    private final TipoApuesta tipoApuesta;
     private final int numeroRuleta;
-    private final char tipo;
     private final boolean esRojo;
     private final boolean acierto;
     private final int monto;
 
-    public Resultado(int numeroRuleta, char tipo, boolean esRojo, boolean acierto, int monto)
+    public Resultado(int numeroRuleta, TipoApuesta tipo, boolean esRojo, boolean acierto, int monto)
     {
         this.numeroRuleta = numeroRuleta;
-        this.tipo = tipo;
+        this.tipoApuesta = tipo;
         this.esRojo = esRojo;
         this.acierto = acierto;
         this.monto = monto;
@@ -21,9 +21,9 @@ public class Resultado
     {
         return numeroRuleta;
     }
-    public char getTipo()
+    public TipoApuesta getTipo()
     {
-        return tipo;
+        return tipoApuesta;
     }
     public boolean getEsRojo()
     {

@@ -2,6 +2,8 @@ package controlador;
 
 import modelo.Resultado;
 import modelo.Ruleta;
+import modelo.TipoApuesta;
+
 public class RuletaController
 {
     private static final int SALDO_INICIAL = 1000;
@@ -11,7 +13,7 @@ public class RuletaController
     {
         this.ruleta = new Ruleta(SALDO_INICIAL);
     }
-    public Resultado realizarApuesta(char tipo, int monto)
+    public Resultado realizarApuesta(TipoApuesta tipo, int monto)
     {
         return ruleta.apostar(tipo, monto);
     }
