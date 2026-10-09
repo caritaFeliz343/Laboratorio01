@@ -39,4 +39,17 @@ public class SessionController
     {
         usuarioActual = null;
     }
+
+    public String getUsername()
+    {
+        return hayUsuario() ? usuarioActual.getNombre() : "";
+    }
+
+    public void actualizarNombre(String nombreNuevo)
+    {
+        if (hayUsuario())
+        {
+            usuarioActual.setNombre(nombreNuevo);
+        }
+    }
 }
