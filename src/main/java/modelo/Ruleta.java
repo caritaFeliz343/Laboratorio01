@@ -103,4 +103,12 @@ public class Ruleta {
         registrarResultado(numeroRuleta, monto, acierto);
         return new Resultado(numeroRuleta, tipo, esRojo(numeroRuleta), acierto, monto);
     }
+    public void depositar(int monto)
+    {
+        if (monto < 1)
+        {
+            throw new IllegalArgumentException("El monto de la apuesta debe ser mayor a 0");
+        }
+        saldo += monto;
+    }
 }
