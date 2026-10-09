@@ -42,7 +42,7 @@ public class SessionController
 
     public String getUsername()
     {
-        return hayUsuario() ? usuarioActual.getNombre() : "";
+        return hayUsuario() ? usuarioActual.getUsername() : "";
     }
 
     public void actualizarNombre(String nombreNuevo)
