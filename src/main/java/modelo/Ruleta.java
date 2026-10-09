@@ -24,12 +24,12 @@ public class Ruleta {
         this(0);
     }
 
-    public static int girarRuleta()
+    private int girarRuleta()
     {
         int numeroRandom = rng.nextInt(0,NUMERO_MAXIMO_RULETA);
         return numeroRandom;
     }
-    public static boolean evaluarResultado(int numero, TipoApuesta tipo)
+    private boolean evaluarResultado(int numero, TipoApuesta tipo)
     // true si acerto, false si no
     {
         if (numero == 0)
@@ -44,7 +44,7 @@ public class Ruleta {
             case IMPAR -> numero % 2 != 0;
         };
     }
-    public static boolean esRojo(int n)
+    private boolean esRojo(int n)
     {
         boolean boolRetorno = false;
         for (int numero : numerosRojos)
@@ -61,7 +61,7 @@ public class Ruleta {
         }
         return boolRetorno;
     }
-    public void registrarResultado(int numero, int apuesta, boolean acierto)
+    private void registrarResultado(int numero, int apuesta, boolean acierto)
     {
         historialNumeros[historialSize] = numero;
         historialApuestas[historialSize] = apuesta;
@@ -69,7 +69,7 @@ public class Ruleta {
         historialSize++;
     }
 
-    public static int modificadorGanarPerder(int monto, boolean acierto)
+    private int modificadorGanarPerder(int monto, boolean acierto)
     {
         if (acierto)
         {
