@@ -20,5 +20,19 @@ public class ResultadoController
         }
         return color;
     }
+    public String getVeredicto(Resultado resultado)
+    {
+        String veredicto;
+        if (resultado.getEsAcierto())
+        {
+            veredicto = "Ganaste!!!1111";
+        }
+        else
+        {
+            veredicto = "Perdiste.....";
+        }
+        return veredicto;
+    }
+
 
 }
