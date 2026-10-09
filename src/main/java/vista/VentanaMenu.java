@@ -8,6 +8,10 @@ import controlador.SessionController;
 
 public class VentanaMenu
 {
+    private static final int DEPOSITO_INICIAL = 100;
+    private static final int DEPOSITO_MINIMO = 1;
+    private static final int DEPOSITO_MAXIMO = 10000;
+    private static final int DEPOSITO_PASO = 1;
 
     private final SessionController sesion;
     private final RuletaController ruletaController;
@@ -25,7 +29,7 @@ public class VentanaMenu
     private final JButton btnCambiarNombre = new JButton("Cambiar nombre");
 
     private final JLabel lblDeposito = new JLabel("Monto a depositar:");
-    private final JSpinner spinnerDeposito = new JSpinner(new SpinnerNumberModel(10, 1, 10, 1));
+    private final JSpinner spinnerDeposito = new JSpinner(new SpinnerNumberModel(DEPOSITO_INICIAL,DEPOSITO_MINIMO, DEPOSITO_MAXIMO, DEPOSITO_PASO));
     private final JLabel lblEspacioDeposito = new JLabel("");
     private final JButton btnDepositar = new JButton("Depositar saldo");
 
@@ -60,11 +64,14 @@ public class VentanaMenu
         frame.add(lblSalir);
         frame.add(btnSalir);
 
+        btnCambiarNombre.addActionListener(e -> cambiarNombre());
+        btnDepositar.addActionListener(e -> depositar());
         btnJugar.addActionListener(e -> irAJugarRuleta());
         btnSalir.addActionListener(e -> irAVentanaSaludo());
 
         lblUsuarioValor.setText(sesion.getUsername());
         txtNombre.setText(sesion.getNombreUsuario());
+        mostrarSaldo();
     }
     public void mostrarVentana()
     {
@@ -83,6 +90,37 @@ public class VentanaMenu
         sesion.cerrarSesion();
         VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
         ventanaSaludo.mostrarVentanaSaludo();
+    }
+    private void mostrarSaldo()
+    {
+        String textoSaldo = Integer.toString(ruletaController.getSaldo());
+        lblSaldoValor.setText(textoSaldo);
+    }
+    private void cambiarNombre()
+    {
+        try
+        {
+            sesion.actualizarNombre(txtNombre.getText());
+            JOptionPane.showMessageDialog(frame, "Nombre actualizado");
+        }
+        catch (IllegalArgumentException e)
+        {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Nombre inválido", JOptionPane.WARNING_MESSAGE);
+            txtNombre.setText(sesion.getNombreUsuario());
+        }
+    }
+    private void depositar()
+    {
+        int monto = (int) spinnerDeposito.getValue();
+        try
+        {
+            ruletaController.depositar(monto);
+            mostrarSaldo();
+        }
+        catch (IllegalArgumentException e)
+        {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Depósito inválido", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
 
