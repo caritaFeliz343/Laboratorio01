@@ -29,6 +29,11 @@ public class Resultado
     {
         return esRojo;
     }
+
+    public boolean getEsVerde()
+    {
+        return numeroRuleta == 0;
+    }
     public boolean getEsAcierto()
     {
         return acierto;
