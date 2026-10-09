@@ -1,11 +1,13 @@
+package vista;
+
+import controlador.RuletaController;
+import controlador.SessionController;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VentanaLogin {
-    // --- Lista dinámica de usuarios ---
-    public static final List<Usuario> USUARIOS = new ArrayList<>();
+    private final SessionController sesion;
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -18,9 +20,8 @@ public class VentanaLogin {
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
-    public VentanaLogin() {
-        USUARIOS.add(new Usuario("caritaFeliz343","hola123","Christian"));
-        USUARIOS.add(new Usuario("sebasApp","321adios","Sebastian"));
+    public VentanaLogin(SessionController sesion) {
+        this.sesion = sesion;
 
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(3,2,10,10));
@@ -42,7 +43,7 @@ public class VentanaLogin {
     public void regresar()
     {
         frame.dispose();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo();
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     public void mostrarVentana()
@@ -59,36 +60,18 @@ public class VentanaLogin {
     {
         String usuario = txtUsuario.getText();
         String clave = new String(txtClave.getPassword());
-        String validadoNombre = validarCredenciales(usuario,clave);
-        if (!validadoNombre.isEmpty())
+        boolean validadoUsuario = sesion.iniciarSesion(usuario,clave);
+        if (validadoUsuario)
         {
-            JOptionPane.showMessageDialog(frame, "Bienvenido, " + validadoNombre);
+            JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());
             frame.dispose();
-            VentanaMenu ventanaMenu = new VentanaMenu();
+            RuletaController ruletaController = new RuletaController();
+            VentanaMenu ventanaMenu = new VentanaMenu(sesion, ruletaController);
             ventanaMenu.mostrarVentana();
         }
         else
         {
             JOptionPane.showMessageDialog(frame, "Ingrese el nombre de usuario o contraseña correctos","Error",JOptionPane.WARNING_MESSAGE);
         }
-    }
-    /**
-     * Valida las credenciales ingresadas utilizando la lista de usuarios.
-     *
-     * @param u nombre de usuario ingresado
-     * @param p contraseña ingresada
-     * @return el nombre del usuario si las credenciales son válidas o una cadena vacía
-    si no existe una coincidencia
-     */
-    private String validarCredenciales(String u, String p)
-    {
-        for (Usuario usuario : USUARIOS)
-        {
-            if (usuario.validarCredenciales(u,p))
-            {
-                return usuario.getNombre();
-            }
-        }
-        return "";
     }
 }
