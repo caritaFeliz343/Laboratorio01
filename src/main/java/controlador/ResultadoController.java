@@ -34,5 +34,10 @@ public class ResultadoController
         return veredicto;
     }
 
+    public String getTextoResultado(Resultado resultado)
+    {
+        return "Número " + resultado.getNumeroRuleta() + "("+getColor(resultado)+")" + " | Apuesta Tipo " + resultado.getTipo() + " | Monto=$" + resultado.getMonto() + " | " + getVeredicto(resultado);
+    }
+
 
 }
