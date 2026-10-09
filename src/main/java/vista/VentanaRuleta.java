@@ -32,15 +32,6 @@ public class VentanaRuleta
 
     private final JComboBox<TipoApuesta> cboTipoApuesta = new JComboBox<>(TipoApuesta.values());
 
-    private final JRadioButton opcionTipoApuestaParidad = new JRadioButton("Paridad");
-    private final JRadioButton opcionTipoApuestaColor = new JRadioButton("Color");
-
-    private final JRadioButton opcionParidadPar = new JRadioButton("Par");
-    private final JRadioButton opcionParidadImpar = new JRadioButton("Impar");
-
-    private final JRadioButton opcionColorRojo = new JRadioButton("Rojo");
-    private final JRadioButton opcionColorNegro = new JRadioButton("Negro");
-
     private final JSpinner spinnerMonto = new JSpinner(new SpinnerNumberModel(MONTO_INICIAL, MONTO_MINIMO, MONTO_MAXIMO, MONTO_PASO));
     private final JTextField textFieldBalance = new JTextField("",10);
 
