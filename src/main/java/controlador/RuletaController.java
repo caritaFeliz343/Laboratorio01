@@ -21,4 +21,8 @@ public class RuletaController
     {
         return ruleta.getSaldo();
     }
+    public void depositar(int monto)
+    {
+        ruleta.depositar(monto);
+    }
 }
