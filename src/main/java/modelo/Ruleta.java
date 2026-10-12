@@ -1,12 +1,12 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 public class Ruleta {
-    private static final int MAX_HISTORIAL = 100;
     private static final int NUMERO_MAXIMO_RULETA = 37;
-    private int[] historialNumeros = new int[MAX_HISTORIAL];
-    private int[] historialApuestas = new int[MAX_HISTORIAL];
-    private boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
+
+    private final List<Resultado> resultados = new ArrayList<>();
     private int historialSize = 0;
     private static final Random rng = new Random();
     private int saldo;
@@ -61,13 +61,6 @@ public class Ruleta {
         }
         return boolRetorno;
     }
-    private void registrarResultado(int numero, int apuesta, boolean acierto)
-    {
-        historialNumeros[historialSize] = numero;
-        historialApuestas[historialSize] = apuesta;
-        historialAciertos[historialSize] = acierto;
-        historialSize++;
-    }
 
     private int modificadorGanarPerder(int monto, boolean acierto)
     {
@@ -100,8 +93,9 @@ public class Ruleta {
         int numeroRuleta = girarRuleta();
         boolean acierto = evaluarResultado(numeroRuleta, tipo);
         saldo += modificadorGanarPerder(monto, acierto);
-        registrarResultado(numeroRuleta, monto, acierto);
-        return new Resultado(numeroRuleta, tipo, esRojo(numeroRuleta), acierto, monto);
+        Resultado resultado = new Resultado(numeroRuleta, tipo, esRojo(numeroRuleta), acierto, monto);
+        resultados.add(resultado);
+        return resultado;
     }
     public void depositar(int monto)
     {
