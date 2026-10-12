@@ -11,7 +11,7 @@ public class VentanaRuleta
 {
     private final SessionController sesion;
     private final RuletaController ruletaController;
-    private final ResultadoController resultadoController = new ResultadoController();
+    private final ResultadoController resultadoController;
     private static final int ALTO_FILA = 25;
     private static final int ANCHO_OPCIONES = 80;
     private static final int ANCHO_TEXTO = 220;
@@ -41,10 +41,11 @@ public class VentanaRuleta
 
     private final JButton btnSalir = new JButton("Salir");
 
-    public VentanaRuleta(SessionController sesion, RuletaController ruletaController)
+    public VentanaRuleta(SessionController sesion, RuletaController ruletaController, ResultadoController resultadoController)
     {
         this.sesion = sesion;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
         frame.setSize(640,480);
         frame.setLayout(null);
         frame.setResizable(false);
@@ -144,7 +145,7 @@ public class VentanaRuleta
     private void irAVentanaMenu()
     {
         frame.dispose();
-        VentanaMenu ventanaMenu = new VentanaMenu(sesion,ruletaController);
+        VentanaMenu ventanaMenu = new VentanaMenu(sesion,ruletaController, resultadoController);
         ventanaMenu.mostrarVentana();
     }
 }

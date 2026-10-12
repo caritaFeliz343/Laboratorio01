@@ -3,6 +3,7 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+import controlador.ResultadoController;
 import controlador.RuletaController;
 import controlador.SessionController;
 
@@ -15,6 +16,7 @@ public class VentanaMenu
 
     private final SessionController sesion;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
     private final JFrame frame = new JFrame("Menu Ruleta");
 
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -38,10 +40,11 @@ public class VentanaMenu
     private final JLabel lblSalir = new JLabel("Cerrar sesion y volver a la pantalla de bienvenida");
     private final JButton btnSalir = new JButton("Salir");
 
-    public VentanaMenu(SessionController sesion, RuletaController ruletaController)
+    public VentanaMenu(SessionController sesion, RuletaController ruletaController, ResultadoController resultadoController)
     {
         this.sesion = sesion;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(8,2,10,10));
         frame.setResizable(false);
@@ -81,14 +84,14 @@ public class VentanaMenu
     private void irAJugarRuleta()
     {
         frame.dispose();
-        VentanaRuleta ventanaRuleta = new VentanaRuleta(sesion, ruletaController);
+        VentanaRuleta ventanaRuleta = new VentanaRuleta(sesion, ruletaController, resultadoController);
         ventanaRuleta.mostrarVentanaRuleta();
     }
     private void irAVentanaSaludo()
     {
         frame.dispose();
         sesion.cerrarSesion();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion,ruletaController,resultadoController);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     private void mostrarSaldo()

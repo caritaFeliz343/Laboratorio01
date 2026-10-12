@@ -1,11 +1,15 @@
 package vista;
 
+import controlador.ResultadoController;
+import controlador.RuletaController;
 import controlador.SessionController;
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRegistro {
     private final SessionController sesion;
+    private final ResultadoController resultadoController;
+    private final RuletaController ruletaController;
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Registro - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -17,9 +21,11 @@ public class VentanaRegistro {
     private final JButton btnRegistrarse = new JButton("Registrarse");
     private final JButton btnRegresar = new JButton("Regresar");
 
-    public VentanaRegistro(SessionController sesion)
+    public VentanaRegistro(SessionController sesion, RuletaController ruletaController, ResultadoController resultadoController)
     {
         this.sesion = sesion;
+        this.resultadoController = resultadoController;
+        this.ruletaController = ruletaController;
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(4,2,10,10));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,13 +45,13 @@ public class VentanaRegistro {
     private void regresar()
     {
         frame.dispose();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion,ruletaController,resultadoController);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     private void irALogin()
     {
         frame.dispose();
-        VentanaLogin ventanaLogin = new VentanaLogin(sesion);
+        VentanaLogin ventanaLogin = new VentanaLogin(sesion,ruletaController,resultadoController);
         ventanaLogin.mostrarVentana();
     }
     public void mostrarVentana()

@@ -10,9 +10,9 @@ public class RuletaController
     private final Ruleta ruleta;
     private final SessionController sesion;
 
-    public RuletaController(SessionController sesion)
+    public RuletaController(SessionController sesion, Ruleta ruleta)
     {
-        this.ruleta = new Ruleta(SALDO_INICIAL);
+        this.ruleta = ruleta;
         this.sesion = sesion;
     }
     public Resultado realizarApuesta(TipoApuesta tipo, int monto)

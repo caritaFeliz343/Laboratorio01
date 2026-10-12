@@ -7,6 +7,13 @@ import java.util.List;
 
 public class ResultadoController
 {
+    private final SessionController sesion;
+
+    public ResultadoController(SessionController sesion)
+    {
+        this.sesion = sesion;
+    }
+
     public String getColor(Resultado resultado)
     {
         String color;

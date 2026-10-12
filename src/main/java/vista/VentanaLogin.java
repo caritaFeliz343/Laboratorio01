@@ -1,13 +1,15 @@
 package vista;
 
+import controlador.ResultadoController;
 import controlador.RuletaController;
 import controlador.SessionController;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaLogin {
     private final SessionController sesion;
+    private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
     // --- Componentes de la interfaz gráfica ---
     private final JFrame frame = new JFrame("Login - Casino Black Cat");
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -20,8 +22,10 @@ public class VentanaLogin {
      * Constructor que inicializa la ventana de inicio de sesión.
      * Configura sus componentes y eventos.
      */
-    public VentanaLogin(SessionController sesion) {
+    public VentanaLogin(SessionController sesion, RuletaController ruletaController, ResultadoController resultadoController) {
         this.sesion = sesion;
+        this.resultadoController = resultadoController;
+        this.ruletaController = ruletaController;
 
         frame.setSize(640,480);
         frame.setLayout(new GridLayout(3,2,10,10));
@@ -43,7 +47,7 @@ public class VentanaLogin {
     public void regresar()
     {
         frame.dispose();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion,ruletaController,resultadoController);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     public void mostrarVentana()
@@ -65,8 +69,7 @@ public class VentanaLogin {
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());
             frame.dispose();
-            RuletaController ruletaController = new RuletaController(sesion);
-            VentanaMenu ventanaMenu = new VentanaMenu(sesion, ruletaController);
+            VentanaMenu ventanaMenu = new VentanaMenu(sesion, ruletaController, resultadoController);
             ventanaMenu.mostrarVentana();
         }
         else

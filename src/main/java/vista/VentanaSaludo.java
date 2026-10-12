@@ -2,21 +2,30 @@ package vista;
 
 import javax.swing.*;
 import java.awt.*;
+
+import controlador.ResultadoController;
+import controlador.RuletaController;
 import controlador.SessionController;
 
 public class VentanaSaludo
 {
+    private final ResultadoController resultadoController;
+    private final RuletaController ruletaController;
     private final SessionController sesion;
     private final JFrame frame = new JFrame("Casino Black Cat");
     private final JLabel txtBienvenida = new JLabel("Bienvenido al casino Black Cat");
     private final JLabel txtOpciones = new JLabel("¿Que deseas hacer?");
     private final JButton btnLogin = new JButton("Iniciar sesion");
     private final JButton btnRegistro = new JButton("Registrarse");
-    public VentanaSaludo(SessionController sesion)
+
+    public VentanaSaludo(SessionController sesion, RuletaController ruletaController, ResultadoController resultadoController)
     {
         this.sesion = sesion;
-        frame.setSize(640,480);
-        frame.setLayout(new GridLayout(4,1,10,10));
+        this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
+
+        frame.setSize(640, 480);
+        frame.setLayout(new GridLayout(4, 1, 10, 10));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         txtBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(txtBienvenida);
@@ -35,13 +44,13 @@ public class VentanaSaludo
     private void irALogin()
     {
         frame.dispose();
-        VentanaLogin ventanaLogin = new VentanaLogin(sesion);
+        VentanaLogin ventanaLogin = new VentanaLogin(sesion, ruletaController, resultadoController);
         ventanaLogin.mostrarVentana();
     }
     private void irARegistro()
     {
         frame.dispose();
-        VentanaRegistro ventanaRegistro = new VentanaRegistro(sesion);
+        VentanaRegistro ventanaRegistro = new VentanaRegistro(sesion,ruletaController, resultadoController);
         ventanaRegistro.mostrarVentana();
     }
 }
