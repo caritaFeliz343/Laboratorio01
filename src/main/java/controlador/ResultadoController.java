@@ -1,6 +1,10 @@
 package controlador;
 
 import modelo.Resultado;
+import modelo.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ResultadoController
 {
     public String getColor(Resultado resultado)
@@ -39,5 +43,8 @@ public class ResultadoController
         return "Número " + resultado.getNumeroRuleta() + "("+getColor(resultado)+")" + " | Apuesta Tipo " + resultado.getTipo() + " | Monto=$" + resultado.getMonto() + " | " + getVeredicto(resultado);
     }
 
-
+    public void mostrarHistorial(Usuario usuario)
+    {
+        List<Resultado> historialResultados = usuario.getHistorialResultados();
+    }
 }
