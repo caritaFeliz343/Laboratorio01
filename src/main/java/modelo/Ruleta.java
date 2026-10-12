@@ -7,7 +7,6 @@ public class Ruleta {
     private static final int NUMERO_MAXIMO_RULETA = 37;
 
     private final List<Resultado> resultados = new ArrayList<>();
-    private int historialSize = 0;
     private static final Random rng = new Random();
     private int saldo;
     private static int[] numerosRojos = {
