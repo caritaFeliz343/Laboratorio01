@@ -47,4 +47,8 @@ public class Usuario
         return historialResultados;
     }
 
+    public void agregarResultadoHistorial(Resultado resultado)
+    {
+        historialResultados.add(resultado);
+    }
 }

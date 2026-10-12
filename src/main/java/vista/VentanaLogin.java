@@ -65,7 +65,7 @@ public class VentanaLogin {
         {
             JOptionPane.showMessageDialog(frame, "Bienvenido, " + sesion.getNombreUsuario());
             frame.dispose();
-            RuletaController ruletaController = new RuletaController();
+            RuletaController ruletaController = new RuletaController(sesion);
             VentanaMenu ventanaMenu = new VentanaMenu(sesion, ruletaController);
             ventanaMenu.mostrarVentana();
         }
