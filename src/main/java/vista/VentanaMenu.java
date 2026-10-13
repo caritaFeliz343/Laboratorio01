@@ -35,6 +35,9 @@ public class VentanaMenu
     private final JLabel lblEspacioDeposito = new JLabel("");
     private final JButton btnDepositar = new JButton("Depositar saldo");
 
+    private final JLabel lblHistorial = new JLabel("Ir al historial");
+    private final JButton btnIrAlHistorial = new JButton("Historial");
+
     private final JLabel lblJugar = new JLabel("Jugar a la ruleta");
     private final JButton btnJugar = new JButton("Jugar");
     private final JLabel lblSalir = new JLabel("Cerrar sesion y volver a la pantalla de bienvenida");
@@ -46,7 +49,7 @@ public class VentanaMenu
         this.ruletaController = ruletaController;
         this.resultadoController = resultadoController;
         frame.setSize(640,480);
-        frame.setLayout(new GridLayout(8,2,10,10));
+        frame.setLayout(new GridLayout(9,2,10,10));
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -66,11 +69,14 @@ public class VentanaMenu
         frame.add(btnJugar);
         frame.add(lblSalir);
         frame.add(btnSalir);
+        frame.add(lblHistorial);
+        frame.add(btnIrAlHistorial);
 
         btnCambiarNombre.addActionListener(e -> cambiarNombre());
         btnDepositar.addActionListener(e -> depositar());
         btnJugar.addActionListener(e -> irAJugarRuleta());
         btnSalir.addActionListener(e -> irAVentanaSaludo());
+        btnIrAlHistorial.addActionListener(e -> irAHistorial());
 
         lblUsuarioValor.setText(sesion.getUsername());
         txtNombre.setText(sesion.getNombreUsuario());
@@ -124,6 +130,12 @@ public class VentanaMenu
         {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Depósito inválido", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    private void irAHistorial()
+    {
+        frame.dispose();
+        VentanaHistorial ventanaHistorial = new  VentanaHistorial(sesion,ruletaController,resultadoController);
+        ventanaHistorial.mostrarVentanaHistorial();
     }
 }
 
