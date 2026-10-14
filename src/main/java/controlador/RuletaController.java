@@ -29,4 +29,9 @@ public class RuletaController
     {
         ruleta.depositar(monto);
     }
+
+    public void reiniciarSaldo()
+    {
+        ruleta.reiniciarSaldo();
+    }
 }

@@ -9,6 +9,7 @@ public class Ruleta {
     private final List<Resultado> resultados = new ArrayList<>();
     private static final Random rng = new Random();
     private int saldo;
+    private final int saldoInicial;
     private static int[] numerosRojos = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
@@ -16,7 +17,8 @@ public class Ruleta {
 
     public Ruleta(int saldoInicial)
     {
-        this.saldo = Math.max(0, saldoInicial);
+        this.saldoInicial = Math.max(0, saldoInicial);
+        this.saldo = this.saldoInicial;
     }
     public Ruleta()
     {
@@ -103,5 +105,10 @@ public class Ruleta {
             throw new IllegalArgumentException("El monto de la apuesta debe ser mayor a 0");
         }
         saldo += monto;
+    }
+
+    public void reiniciarSaldo()
+    {
+        saldo = saldoInicial;
     }
 }

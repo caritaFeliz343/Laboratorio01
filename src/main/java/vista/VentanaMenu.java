@@ -97,6 +97,7 @@ public class VentanaMenu
     {
         frame.dispose();
         sesion.cerrarSesion();
+        ruletaController.reiniciarSaldo();
         VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion,ruletaController,resultadoController);
         ventanaSaludo.mostrarVentanaSaludo();
     }
