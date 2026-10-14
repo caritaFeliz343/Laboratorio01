@@ -102,7 +102,7 @@ public class Ruleta {
     {
         if (monto < 1)
         {
-            throw new IllegalArgumentException("El monto de la apuesta debe ser mayor a 0");
+            throw new IllegalArgumentException("El monto del deposito debe ser mayor a 0");
         }
         saldo += monto;
     }
