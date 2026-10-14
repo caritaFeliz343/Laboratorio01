@@ -51,7 +51,7 @@ public class ResultadoController
         return "Número " + resultado.getNumeroRuleta() + "("+getColor(resultado)+")" + " | Apuesta Tipo " + resultado.getTipo() + " | Monto=$" + resultado.getMonto() + " | " + getVeredicto(resultado);
     }
 
-    public List<String> mostrarHistorialTexto(SessionController sesion)
+    public List<String> mostrarHistorialTexto()
     {
         List<String> historialTexto = new ArrayList<>();
         List<Resultado> historialResultados = sesion.getUsuarioActual().getHistorialResultados();

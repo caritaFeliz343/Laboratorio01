@@ -61,7 +61,7 @@ public class VentanaHistorial
 
     private void mostrarHistorial()
     {
-        List<String> lineaHistorial = resultadoController.mostrarHistorialTexto(sesion);
+        List<String> lineaHistorial = resultadoController.mostrarHistorialTexto();
         if (lineaHistorial.isEmpty())
         {
             areaHistorial.setText("Todavia no has jugado. ¡Ve a probar tu suerte!");
