@@ -2,6 +2,7 @@ package controlador;
 
 import modelo.Resultado;
 import modelo.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +51,14 @@ public class ResultadoController
         return "Número " + resultado.getNumeroRuleta() + "("+getColor(resultado)+")" + " | Apuesta Tipo " + resultado.getTipo() + " | Monto=$" + resultado.getMonto() + " | " + getVeredicto(resultado);
     }
 
-    public void mostrarHistorial(Usuario usuario)
+    public List<String> mostrarHistorialTexto(SessionController sesion)
     {
-        List<Resultado> historialResultados = usuario.getHistorialResultados();
+        List<String> historialTexto = new ArrayList<>();
+        List<Resultado> historialResultados = sesion.getUsuarioActual().getHistorialResultados();
+        for (Resultado resultado : historialResultados)
+        {
+            historialTexto.add("Partida " + (historialResultados.indexOf(resultado)+1)+")"+" "+getTextoResultado(resultado));
+        }
+        return historialTexto;
     }
 }
