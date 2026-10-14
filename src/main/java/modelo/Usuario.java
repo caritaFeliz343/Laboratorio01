@@ -1,11 +1,17 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario
 {
+    private List<Resultado> historialResultados;
     private String username;
     private String password;
     private String nombre;
+
     public Usuario(String username, String password,String nombre){
+        historialResultados = new ArrayList<>();
         this.username=username;
         this.password=password;
         this.nombre=nombre;
@@ -36,4 +42,13 @@ public class Usuario
         this.nombre=nombre;
     }
 
+    public List<Resultado> getHistorialResultados()
+    {
+        return historialResultados;
+    }
+
+    public void agregarResultadoHistorial(Resultado resultado)
+    {
+        historialResultados.add(resultado);
+    }
 }

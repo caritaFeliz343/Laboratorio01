@@ -3,6 +3,7 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+import controlador.ResultadoController;
 import controlador.RuletaController;
 import controlador.SessionController;
 
@@ -15,6 +16,7 @@ public class VentanaMenu
 
     private final SessionController sesion;
     private final RuletaController ruletaController;
+    private final ResultadoController resultadoController;
     private final JFrame frame = new JFrame("Menu Ruleta");
 
     private final JLabel lblUsuario = new JLabel("Usuario:");
@@ -33,17 +35,21 @@ public class VentanaMenu
     private final JLabel lblEspacioDeposito = new JLabel("");
     private final JButton btnDepositar = new JButton("Depositar saldo");
 
+    private final JLabel lblHistorial = new JLabel("Ir al historial");
+    private final JButton btnIrAlHistorial = new JButton("Historial");
+
     private final JLabel lblJugar = new JLabel("Jugar a la ruleta");
     private final JButton btnJugar = new JButton("Jugar");
     private final JLabel lblSalir = new JLabel("Cerrar sesion y volver a la pantalla de bienvenida");
     private final JButton btnSalir = new JButton("Salir");
 
-    public VentanaMenu(SessionController sesion, RuletaController ruletaController)
+    public VentanaMenu(SessionController sesion, RuletaController ruletaController, ResultadoController resultadoController)
     {
         this.sesion = sesion;
         this.ruletaController = ruletaController;
+        this.resultadoController = resultadoController;
         frame.setSize(640,480);
-        frame.setLayout(new GridLayout(8,2,10,10));
+        frame.setLayout(new GridLayout(9,2,10,10));
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -61,6 +67,8 @@ public class VentanaMenu
         frame.add(btnDepositar);
         frame.add(lblJugar);
         frame.add(btnJugar);
+        frame.add(lblHistorial);
+        frame.add(btnIrAlHistorial);
         frame.add(lblSalir);
         frame.add(btnSalir);
 
@@ -68,6 +76,7 @@ public class VentanaMenu
         btnDepositar.addActionListener(e -> depositar());
         btnJugar.addActionListener(e -> irAJugarRuleta());
         btnSalir.addActionListener(e -> irAVentanaSaludo());
+        btnIrAlHistorial.addActionListener(e -> irAHistorial());
 
         lblUsuarioValor.setText(sesion.getUsername());
         txtNombre.setText(sesion.getNombreUsuario());
@@ -81,14 +90,15 @@ public class VentanaMenu
     private void irAJugarRuleta()
     {
         frame.dispose();
-        VentanaRuleta ventanaRuleta = new VentanaRuleta(sesion, ruletaController);
+        VentanaRuleta ventanaRuleta = new VentanaRuleta(sesion, ruletaController, resultadoController);
         ventanaRuleta.mostrarVentanaRuleta();
     }
     private void irAVentanaSaludo()
     {
         frame.dispose();
         sesion.cerrarSesion();
-        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion);
+        ruletaController.reiniciarSaldo();
+        VentanaSaludo ventanaSaludo = new VentanaSaludo(sesion,ruletaController,resultadoController);
         ventanaSaludo.mostrarVentanaSaludo();
     }
     private void mostrarSaldo()
@@ -121,6 +131,12 @@ public class VentanaMenu
         {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Depósito inválido", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    private void irAHistorial()
+    {
+        frame.dispose();
+        VentanaHistorial ventanaHistorial = new  VentanaHistorial(sesion,ruletaController,resultadoController);
+        ventanaHistorial.mostrarVentanaHistorial();
     }
 }
 

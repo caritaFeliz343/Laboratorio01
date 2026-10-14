@@ -1,15 +1,15 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 public class Ruleta {
-    private static final int MAX_HISTORIAL = 100;
     private static final int NUMERO_MAXIMO_RULETA = 37;
-    private int[] historialNumeros = new int[MAX_HISTORIAL];
-    private int[] historialApuestas = new int[MAX_HISTORIAL];
-    private boolean[] historialAciertos = new boolean[MAX_HISTORIAL];
-    private int historialSize = 0;
+
+    private final List<Resultado> resultados = new ArrayList<>();
     private static final Random rng = new Random();
     private int saldo;
+    private final int saldoInicial;
     private static int[] numerosRojos = {
             1, 3, 5, 7, 9, 12, 14, 16, 18,
             19, 21, 23, 25, 27, 30, 32, 34, 36
@@ -17,7 +17,8 @@ public class Ruleta {
 
     public Ruleta(int saldoInicial)
     {
-        this.saldo = Math.max(0, saldoInicial);
+        this.saldoInicial = Math.max(0, saldoInicial);
+        this.saldo = this.saldoInicial;
     }
     public Ruleta()
     {
@@ -61,13 +62,6 @@ public class Ruleta {
         }
         return boolRetorno;
     }
-    private void registrarResultado(int numero, int apuesta, boolean acierto)
-    {
-        historialNumeros[historialSize] = numero;
-        historialApuestas[historialSize] = apuesta;
-        historialAciertos[historialSize] = acierto;
-        historialSize++;
-    }
 
     private int modificadorGanarPerder(int monto, boolean acierto)
     {
@@ -100,15 +94,21 @@ public class Ruleta {
         int numeroRuleta = girarRuleta();
         boolean acierto = evaluarResultado(numeroRuleta, tipo);
         saldo += modificadorGanarPerder(monto, acierto);
-        registrarResultado(numeroRuleta, monto, acierto);
-        return new Resultado(numeroRuleta, tipo, esRojo(numeroRuleta), acierto, monto);
+        Resultado resultado = new Resultado(numeroRuleta, tipo, esRojo(numeroRuleta), acierto, monto);
+        resultados.add(resultado);
+        return resultado;
     }
     public void depositar(int monto)
     {
         if (monto < 1)
         {
-            throw new IllegalArgumentException("El monto de la apuesta debe ser mayor a 0");
+            throw new IllegalArgumentException("El monto del deposito debe ser mayor a 0");
         }
         saldo += monto;
+    }
+
+    public void reiniciarSaldo()
+    {
+        saldo = saldoInicial;
     }
 }
