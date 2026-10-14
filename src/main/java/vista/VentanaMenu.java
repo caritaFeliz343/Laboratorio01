@@ -67,10 +67,10 @@ public class VentanaMenu
         frame.add(btnDepositar);
         frame.add(lblJugar);
         frame.add(btnJugar);
-        frame.add(lblSalir);
-        frame.add(btnSalir);
         frame.add(lblHistorial);
         frame.add(btnIrAlHistorial);
+        frame.add(lblSalir);
+        frame.add(btnSalir);
 
         btnCambiarNombre.addActionListener(e -> cambiarNombre());
         btnDepositar.addActionListener(e -> depositar());
