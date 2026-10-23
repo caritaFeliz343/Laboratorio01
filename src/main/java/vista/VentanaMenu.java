@@ -40,6 +40,10 @@ public class VentanaMenu
 
     private final JLabel lblJugar = new JLabel("Jugar a la ruleta");
     private final JButton btnJugar = new JButton("Jugar");
+
+    private final JLabel lblEstadisticas = new JLabel("Ver estadisticas");
+    private final JButton btnEstadisticas = new JButton("Estadisticas");
+
     private final JLabel lblSalir = new JLabel("Cerrar sesion y volver a la pantalla de bienvenida");
     private final JButton btnSalir = new JButton("Salir");
 
@@ -49,7 +53,7 @@ public class VentanaMenu
         this.ruletaController = ruletaController;
         this.resultadoController = resultadoController;
         frame.setSize(640,480);
-        frame.setLayout(new GridLayout(9,2,10,10));
+        frame.setLayout(new GridLayout(10,2,10,10));
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -69,6 +73,8 @@ public class VentanaMenu
         frame.add(btnJugar);
         frame.add(lblHistorial);
         frame.add(btnIrAlHistorial);
+        frame.add(lblEstadisticas);
+        frame.add(btnEstadisticas);
         frame.add(lblSalir);
         frame.add(btnSalir);
 
@@ -77,6 +83,7 @@ public class VentanaMenu
         btnJugar.addActionListener(e -> irAJugarRuleta());
         btnSalir.addActionListener(e -> irAVentanaSaludo());
         btnIrAlHistorial.addActionListener(e -> irAHistorial());
+        btnEstadisticas.addActionListener(e -> irAEstadisticas());
 
         lblUsuarioValor.setText(sesion.getUsername());
         txtNombre.setText(sesion.getNombreUsuario());
@@ -138,5 +145,12 @@ public class VentanaMenu
         VentanaHistorial ventanaHistorial = new  VentanaHistorial(sesion,ruletaController,resultadoController);
         ventanaHistorial.mostrarVentanaHistorial();
     }
+    private void irAEstadisticas()
+    {
+        frame.dispose();
+        VentanaEstadisticas ventanaEstadisticas = new VentanaEstadisticas(sesion,ruletaController,resultadoController);
+        ventanaEstadisticas.mostrarVentanaEstadisticas();
+    }
+
 }
 
